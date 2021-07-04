@@ -12,11 +12,13 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
     s.stroke(255);
+    s.strokeWeight(3);
     s.noFill();
 
     // create a line by drawing multiple points
     for (let x = 0; x < s.width; x++) {
-      s.point(x, s.height / 2);
+      let y = s.random() * s.height;
+      s.point(x, y);
     }
   };
 };
