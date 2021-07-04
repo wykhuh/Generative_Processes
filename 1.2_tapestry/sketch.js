@@ -32,7 +32,10 @@ const sketch = (s) => {
   };
 
   function drawRandomPattern() {
-    s.rect(0, 0, grid, grid);
+    // draw line from lower left to upper right
+    s.line(0, grid, grid, 0);
+    // draw line upper right to lower left
+    s.line(0, 0, grid, grid);
   }
 };
 
