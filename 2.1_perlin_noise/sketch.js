@@ -1,7 +1,8 @@
 import p5 from "p5";
 
 const sketch = (s) => {
-  let size = 100;
+  let size = 5; // height of range
+  let res = 0.1; // how much random is moved up and down
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -27,7 +28,8 @@ const sketch = (s) => {
     // a line
     s.beginShape();
     for (let x = 0; x < s.width; x++) {
-      let y = s.map(r, 0, 1, size * -1, size);
+      r += s.random(-res, res);
+      let y = s.map(r, 0, 1, -size, size);
       s.vertex(x, y);
     }
     s.endShape();
