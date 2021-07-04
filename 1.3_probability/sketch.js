@@ -2,7 +2,12 @@ import p5 from "p5";
 
 const sketch = (s) => {
   let grid = 20; // in pixels
-  let choices = [pattern1, pattern2, pattern3, pattern4];
+  let choices = [
+    [pattern1, 4],
+    [pattern2, 2],
+    [pattern3, 1],
+    [pattern4, 1],
+  ];
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -36,8 +41,16 @@ const sketch = (s) => {
   };
 
   function drawRandomPattern() {
+    let raffle = [];
+    for (const choice of choices) {
+      let count = choice[1];
+      for (let index = 0; index < count; index++) {
+        raffle.push(choice[0]);
+      }
+    }
+
     // p5 random will pick random item in array
-    let choosePattern = s.random(choices);
+    let choosePattern = s.random(raffle);
 
     choosePattern();
   }
