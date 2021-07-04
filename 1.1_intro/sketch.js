@@ -20,9 +20,8 @@ const sketch = (s) => {
     // stroke color
     s.stroke(255);
 
-    // map will re-map a number from one range to another
-    // map(value, currentMin, currentMax, targetMin, targetMax);
-    let circleDiameter = s.map(s.mouseX, 0, s.width, 5, 50);
+    // diameter determined by how fast you move the mouse
+    let circleDiameter = s.dist(s.mouseX, s.mouseY, s.pmouseX, s.pmouseY);
 
     s.circle(s.mouseX, s.mouseY, circleDiameter);
   };
