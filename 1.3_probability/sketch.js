@@ -2,7 +2,7 @@ import p5 from "p5";
 
 const sketch = (s) => {
   let grid = 20; // in pixels
-  let choices = [pattern1, pattern2];
+  let choices = [pattern1, pattern2, pattern3, pattern4];
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -50,6 +50,16 @@ const sketch = (s) => {
   function pattern2() {
     // draw line upper right to lower left
     s.line(0, 0, grid, grid);
+  }
+
+  function pattern3() {
+    // draw line from upper right to center
+    s.line(0, 0, grid / 2, grid / 2);
+  }
+
+  function pattern4() {
+    // draw line from lower left to center
+    s.line(0, grid, grid / 2, grid / 2);
   }
 };
 
