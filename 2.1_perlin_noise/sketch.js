@@ -1,6 +1,8 @@
 import p5 from "p5";
 
 const sketch = (s) => {
+  let size = 100;
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
   };
@@ -15,9 +17,14 @@ const sketch = (s) => {
     s.strokeWeight(3);
     s.noFill();
 
-    // create a line by drawing multiple points
+    // move origin to halfway
+    s.translate(0, s.height / 2);
+
+    // drawing multiple points at random heights
+    // create line whose thickness is centered around height/2
     for (let x = 0; x < s.width; x++) {
-      let y = s.random() * s.height;
+      let r = s.random();
+      let y = s.map(r, 0, 1, size * -1, size);
       s.point(x, y);
     }
   };
