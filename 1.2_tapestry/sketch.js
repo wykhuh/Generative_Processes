@@ -29,13 +29,22 @@ const sketch = (s) => {
         s.pop();
       }
     }
+
+    // stop draw()
+    s.noLoop();
   };
 
   function drawRandomPattern() {
-    // draw line from lower left to upper right
-    s.line(0, grid, grid, 0);
-    // draw line upper right to lower left
-    s.line(0, 0, grid, grid);
+    // pick random number between 0 and 1
+    let rand = s.random(1);
+
+    if (rand < 0.5) {
+      // draw line from lower left to upper right
+      s.line(0, grid, grid, 0);
+    } else {
+      // draw line upper right to lower left
+      s.line(0, 0, grid, grid);
+    }
   }
 };
 
