@@ -37,14 +37,25 @@ const sketch = (s) => {
   function drawRandomPattern() {
     // pick random number between 0 and 1
     let rand = s.random(1);
+    let thePattern;
 
     if (rand < 0.5) {
-      // draw line from lower left to upper right
-      s.line(0, grid, grid, 0);
+      thePattern = pattern1;
     } else {
-      // draw line upper right to lower left
-      s.line(0, 0, grid, grid);
+      thePattern = pattern2;
     }
+
+    thePattern();
+  }
+
+  function pattern1() {
+    // draw line from lower left to upper right
+    s.line(0, grid, grid, 0);
+  }
+
+  function pattern2() {
+    // draw line upper right to lower left
+    s.line(0, 0, grid, grid);
   }
 };
 
