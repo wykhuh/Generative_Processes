@@ -1,4 +1,5 @@
 import p5 from "p5";
+import * as dat from "dat.gui";
 
 const sketch = (s) => {
   let size = 5; // height of range
