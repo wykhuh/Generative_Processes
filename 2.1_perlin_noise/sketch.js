@@ -14,7 +14,10 @@ const sketch = (s) => {
     s.stroke(255);
     s.noFill();
 
-    s.line(0, s.height / 2, s.width, s.height / 2);
+    // create a line by drawing multiple points
+    for (let x = 0; x < s.width; x++) {
+      s.point(x, s.height / 2);
+    }
   };
 };
 
