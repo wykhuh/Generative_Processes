@@ -20,6 +20,7 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
     s.stroke(255);
+    s.strokeWeight(grid / 5);
     s.noFill();
 
     // draw rows
