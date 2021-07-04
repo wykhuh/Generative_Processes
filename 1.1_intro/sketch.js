@@ -20,7 +20,11 @@ const sketch = (s) => {
     // stroke color
     s.stroke(255);
 
-    s.circle(s.mouseX, s.mouseY, 50);
+    // map will re-map a number from one range to another
+    // map(value, currentMin, currentMax, targetMin, targetMax);
+    let circleDiameter = s.map(s.mouseX, 0, s.width, 5, 50);
+
+    s.circle(s.mouseX, s.mouseY, circleDiameter);
   };
 };
 
