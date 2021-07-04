@@ -20,10 +20,20 @@ const sketch = (s) => {
     for (let x = 0; x < s.width; x += grid) {
       // draw columns
       for (let y = 0; y < s.height; y += grid) {
-        s.rect(x, y, grid, grid);
+        // push -  saves the current drawing style settings and transformations
+        s.push();
+        // set zero, zero point to the upper left corner of each cell
+        s.translate(x, y);
+        drawRandomPattern();
+        // pop - restores the settings.
+        s.pop();
       }
     }
   };
+
+  function drawRandomPattern() {
+    s.rect(0, 0, grid, grid);
+  }
 };
 
 const sketchInstance = new p5(sketch);
