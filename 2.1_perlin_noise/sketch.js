@@ -20,13 +20,16 @@ const sketch = (s) => {
     // move origin to halfway
     s.translate(0, s.height / 2);
 
-    // drawing multiple points at random heights
     // create line whose thickness is centered around height/2
+    // drawing multiple vertex at random heights; connect all the vertex with
+    // a line
+    s.beginShape();
     for (let x = 0; x < s.width; x++) {
       let r = s.random();
       let y = s.map(r, 0, 1, size * -1, size);
-      s.point(x, y);
+      s.vertex(x, y);
     }
+    s.endShape();
   };
 };
 
