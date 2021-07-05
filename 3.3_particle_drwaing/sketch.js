@@ -1,19 +1,26 @@
 import p5 from "p5";
+import * as dat from "dat.gui";
 
 const sketch = (s) => {
   let group = []; // our particle system
-
-  let easing = 0.2; // a value to temper acceleration
-  let damping = 1; // value to temper velocity; high
-
-  // create vector that points downwards
-  let gravity = new p5.Vector(0, 0.01);
+  let gui;
+  let settings = {
+    damping: 1, // value to temper velocity; high
+    bgAlpha: 255,
+    gravity: 0.01,
+    lifespan: 300,
+  };
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     // coordinates pased to rectangle refers to center of rectangle instead of
     // top left corner of rectangle
     s.rectMode(s.CENTER);
+    gui = new dat.GUI();
+    gui.add(settings, "damping", 0.95, 1);
+    gui.add(settings, "bgAlpha", 0, 255);
+    gui.add(settings, "gravity", 0, 0.1);
+    gui.add(settings, "lifespan", 100, 1000);
   };
 
   s.windowResized = () => {
@@ -23,7 +30,10 @@ const sketch = (s) => {
   s.draw = () => {
     s.noFill();
     s.stroke(255);
-    s.background(33, 50);
+    s.background(33, settings.bgAlpha);
+
+    // create vector that points downwards
+    let gravity = new p5.Vector(0, settings.gravity);
 
     //   create new agents over time
     if (s.mouseIsPressed) {
@@ -54,7 +64,7 @@ const sketch = (s) => {
       position: new p5.Vector(x, y),
       velocity: new p5.Vector(vx, vy),
       acceleration: new p5.Vector(),
-      lifespan: 300, // number of frames
+      lifespan: settings.lifespan, // number of frames
     };
   }
 
@@ -75,7 +85,7 @@ const sketch = (s) => {
 
   function move(agent) {
     agent.velocity.add(agent.acceleration);
-    agent.velocity.mult(damping);
+    agent.velocity.mult(settings.damping);
     agent.position.add(agent.velocity);
     // set acceleration to zero
     agent.acceleration.mult(0);
@@ -89,20 +99,6 @@ const sketch = (s) => {
   function twitch(agent) {
     // rotate uses radians
     agent.velocity.rotate(s.random(-0.02, 0.02));
-  }
-
-  function followMouse(agent) {
-    // vector for mouse position
-    let target = new p5.Vector(s.mouseX, s.mouseY);
-
-    // subtract position vector from current mouse vector to calculate the
-    // needed vector in order to make square follow mouse
-    let diff = target.sub(agent.position);
-    // reduce vector
-    diff.mult(easing);
-
-    // add vectors
-    agent.acceleration.add(diff);
   }
 
   function cleanUp(group) {
