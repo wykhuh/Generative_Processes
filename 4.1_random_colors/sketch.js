@@ -23,7 +23,8 @@ const sketch = (s) => {
         s.translate(x + grid / 2, y + grid / 2);
 
         let c1 = s.random(palette);
-        let c2 = s.random(palette);
+        let c2;
+        while ((c2 = s.random(palette)) == c1) {}
 
         s.noStroke();
 
