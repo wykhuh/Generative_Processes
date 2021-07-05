@@ -1,18 +1,16 @@
 import p5 from "p5";
 
 const sketch = (s) => {
-  let agent;
+  let group = []; // our particle system
 
-  let easing = 0.1; // a value to temper acceleration
-  let damping = 0.5; // value to temper velocity; high
+  let easing = 0.2; // a value to temper acceleration
+  let damping = 1; // value to temper velocity; high
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     // coordinates pased to rectangle refers to center of rectangle instead of
     // top left corner of rectangle
     s.rectMode(s.CENTER);
-
-    agent = createAgent();
   };
 
   s.windowResized = () => {
@@ -24,16 +22,30 @@ const sketch = (s) => {
     s.stroke(255);
     s.background(0);
 
-    move(agent);
-    followMouse(agent);
-    render(agent);
+    //   create new agents over time
+    if (s.mouseIsPressed) {
+      let newAgent = createAgent(
+        s.width / 2,
+        s.height / 2,
+        s.random(-1, 1),
+        s.random(-1, 1)
+      );
+
+      group.push(newAgent);
+    }
+
+    // update/render all agents
+    for (let agent of group) {
+      move(agent);
+      render(agent);
+    }
   };
 
   // create a moving item
-  function createAgent() {
+  function createAgent(x = 0, y = 0, vx = 0, vy = 0) {
     return {
-      position: new p5.Vector(),
-      velocity: new p5.Vector(),
+      position: new p5.Vector(x, y),
+      velocity: new p5.Vector(vx, vy),
       acceleration: new p5.Vector(),
     };
   }
