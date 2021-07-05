@@ -29,14 +29,14 @@ const sketch = (s) => {
     // move origin to halfway
     s.translate(0, s.height / 2);
 
-    let r = s.random();
-
     // create line whose thickness is centered around height/2
     // drawing multiple vertex at random heights; connect all the vertex with
     // a line
     s.beginShape();
     for (let x = 0; x < s.width; x++) {
-      r += s.random(-settings.res, settings.res);
+      let r = s.noise(x * settings.res);
+
+      let y = s.map(r, 0, 1, -settings.size, settings.size);
       s.vertex(x, y);
     }
     s.endShape();
