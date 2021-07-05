@@ -64,6 +64,10 @@ const sketch = (s) => {
     s.translate(agent.position.x, agent.position.y);
     // rotate agent to match angle of the velocity
     s.rotate(agent.velocity.heading());
+    // make old agents fade over time
+    let alpha = s.map(agent.lifespan, 0, 300, 0, 255);
+    s.stroke(255, alpha);
+
     s.rect(0, 0, 10, 5);
     s.pop();
   }
@@ -94,9 +98,9 @@ const sketch = (s) => {
   function cleanUp(group) {
     for (let i = group.length - 1; i >= 0; i--) {
       let agent = group[i];
-      // remove agent from group
+      // remove agent from group.
       // set boundary bigger than the window size so we delete objects
-      // once they are offscreen
+      // once they are offscreen.
       if (
         isAgentInsideBox(agent, -50, -50, s.width + 100, s.height + 100) ==
           false ||
