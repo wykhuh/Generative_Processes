@@ -26,8 +26,8 @@ const sketch = (s) => {
     s.noFill();
     s.stroke(255);
 
-    position.x += velocity.x;
-    position.y += velocity.y;
+    // add vectors
+    position.add(velocity);
 
     s.rect(position.x, position.y, 50);
 
