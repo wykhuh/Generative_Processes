@@ -26,6 +26,7 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.background(0);
+    s.noFill();
     s.stroke(255, settings.alpha);
     s.strokeWeight(1);
 
@@ -54,6 +55,13 @@ const sketch = (s) => {
   function playback() {
     for (let frame of recorder) {
       s.line(frame.x1, frame.y1, frame.x2, frame.y2);
+
+      // lerp calculates a number between two numbers
+      // 0.5 finds midpoint
+      let midX = s.lerp(frame.x1, frame.x2, 0.5);
+      let midY = s.lerp(frame.y1, frame.y2, 0.5);
+
+      s.circle(midX, midY, 10);
     }
   }
 };
