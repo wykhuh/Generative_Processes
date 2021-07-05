@@ -40,6 +40,7 @@ const sketch = (s) => {
     // update/render all agents
     for (let agent of group) {
       move(agent);
+      twitch(agent);
       applyForce(agent, gravity);
       render(agent);
     }
@@ -87,6 +88,11 @@ const sketch = (s) => {
 
   function applyForce(agent, force) {
     agent.acceleration.add(force);
+  }
+
+  function twitch(agent) {
+    // rotate uses radians
+    agent.velocity.rotate(s.random(-0.02, 0.02));
   }
 
   function followMouse(agent) {
