@@ -1,11 +1,19 @@
 import p5 from "p5";
 
 const sketch = (s) => {
+  let highway = "highway.jpg";
   let grid = 40;
   let palette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
+  let img;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+  };
+
+  // use prload to load assets. Once assets are load, then
+  // setup is fired.
+  s.preload = () => {
+    img = s.loadImage(highway);
   };
 
   s.windowResized = () => {
@@ -36,7 +44,7 @@ const sketch = (s) => {
         s.pop();
       }
     }
-
+    s.image(img, 0, 0);
     s.noLoop();
   };
 };
