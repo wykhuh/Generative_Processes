@@ -36,6 +36,12 @@ const sketch = (s) => {
 
   function drawVector() {
     s.line(0, 0, position.x, position.y);
+
+    // draw velocity vector
+    s.push();
+    s.translate(position.x, position.y);
+    s.line(0, 0, velocity.x * 20, velocity.y * 20);
+    s.pop();
   }
 };
 
