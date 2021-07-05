@@ -22,7 +22,8 @@ const sketch = (s) => {
     s.strokeWeight(5);
 
     let x = s.noise(s.frameCount * settings.res) * s.width;
-    let y = s.height / 2;
+    // add constant so that noise for x and y will return a different value
+    let y = s.noise(100 + s.frameCount * settings.res) * s.height;
 
     s.point(x, y);
   };
