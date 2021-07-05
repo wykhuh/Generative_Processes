@@ -29,7 +29,13 @@ const sketch = (s) => {
     // add vectors
     position.add(velocity);
 
-    s.rect(position.x, position.y, 50);
+    s.push();
+    // to rotate the square, we need to move origin to center of square
+    s.translate(position.x, position.y);
+    // rotate square to match angle of the velocity
+    s.rotate(velocity.heading());
+    s.rect(0, 0, 50);
+    s.pop();
 
     drawVector();
   };
