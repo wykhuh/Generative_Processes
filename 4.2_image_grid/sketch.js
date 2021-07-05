@@ -26,8 +26,10 @@ const sketch = (s) => {
 
     s.imageMode(s.CENTER);
 
-    let sx = s.map(s.mouseX, 0, s.width, 0, img.width - grid);
-    let sy = s.map(s.mouseY, 0, s.height, 0, img.height - grid);
+    let res = 0.001;
+    let n = s.frameCount * res;
+    let sx = s.map(s.noise(n), 0, 1, 0, img.width - grid);
+    let sy = s.map(s.noise(n + 100), 0, 1, 0, img.height - grid);
 
     for (let x = 0; x < s.width; x += grid) {
       for (let y = 0; y < s.height; y += grid) {
@@ -50,7 +52,7 @@ const sketch = (s) => {
       }
     }
 
-    // createPreview(img, grid, sx, sy);
+    createPreview(img, grid, sx, sy);
   };
 
   function createPreview(img, grid, sx, sy) {
