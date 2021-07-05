@@ -13,7 +13,7 @@ const sketch = (s) => {
 
     gui = new dat.GUI();
     gui.add(settings, "size", 5, 200);
-    gui.add(settings, "res", 0.001, 0.1);
+    gui.add(settings, "res", 0.001, 1);
   };
 
   s.windowResized = () => {
@@ -34,7 +34,7 @@ const sketch = (s) => {
     // a line
     s.beginShape();
     for (let x = 0; x < s.width; x++) {
-      let r = s.noise(x * settings.res);
+      let r = s.noise((s.frameCount + x) * settings.res);
 
       let y = s.map(r, 0, 1, -settings.size, settings.size);
       s.vertex(x, y);
