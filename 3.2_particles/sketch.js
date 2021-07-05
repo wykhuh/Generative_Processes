@@ -39,6 +39,12 @@ const sketch = (s) => {
       move(agent);
       render(agent);
     }
+
+    cleanUp(group);
+
+    // display number of agents
+    s.fill(255);
+    s.text(group.length, 20, 20);
   };
 
   // create a moving item
@@ -57,7 +63,7 @@ const sketch = (s) => {
     s.translate(agent.position.x, agent.position.y);
     // rotate agent to match angle of the velocity
     s.rotate(agent.velocity.heading());
-    s.rect(0, 0, 50);
+    s.rect(0, 0, 10, 5);
     s.pop();
   }
 
@@ -82,6 +88,26 @@ const sketch = (s) => {
 
     // add vectors
     agent.acceleration.add(diff);
+  }
+
+  function cleanUp(group) {
+    for (let i = 0; i < group.length; i++) {
+      let agent = group[i];
+      // remove agent from group if it is outside box
+      if (isAgentInsideBox(agent, 0, 0, s.width, s.height) == false) {
+        group.splice(i, 1);
+      }
+    }
+  }
+
+  function isAgentInsideBox(agent, x, y, w, h) {
+    let ax = agent.position.x;
+    let ay = agent.position.y;
+    if (ax > x && ax < x + w && ay > y && ay < y + h) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 
