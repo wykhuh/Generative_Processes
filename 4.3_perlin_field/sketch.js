@@ -4,6 +4,7 @@ const sketch = (s) => {
   let highway = "highway.jpg";
   let grid = 20;
   let img;
+  let res = 0.01;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -23,7 +24,6 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.background(0);
-    s.stroke(255);
     s.fill(0);
 
     s.rectMode(s.CENTER);
@@ -34,6 +34,8 @@ const sketch = (s) => {
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
 
+        let grey = s.map(s.noise(x * res, y * res), 0, 1, 0, 255);
+        s.fill(grey);
         s.rect(0, 0, grid);
 
         s.pop();
