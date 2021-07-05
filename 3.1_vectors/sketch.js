@@ -26,6 +26,13 @@ const sketch = (s) => {
     s.noFill();
     s.stroke(255);
 
+    // vector for mouse position
+    let target = new p5.Vector(s.mouseX, s.mouseY);
+
+    // subtract position vector from current mouse vector to calculate the
+    // needed velocity vector in order to make square follow mouse
+    velocity = target.sub(position);
+
     // add vectors
     position.add(velocity);
 
