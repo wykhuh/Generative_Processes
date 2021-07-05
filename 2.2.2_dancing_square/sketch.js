@@ -53,6 +53,8 @@ const sketch = (s) => {
 
   // draw line for values in recorder
   function playback() {
+    s.rectMode(s.CENTER);
+
     for (let frame of recorder) {
       s.line(frame.x1, frame.y1, frame.x2, frame.y2);
 
@@ -61,7 +63,10 @@ const sketch = (s) => {
       let midX = s.lerp(frame.x1, frame.x2, 0.5);
       let midY = s.lerp(frame.y1, frame.y2, 0.5);
 
-      s.circle(midX, midY, 10);
+      // get the distance between two points
+      let len = s.dist(frame.x1, frame.y1, frame.x2, frame.y2);
+
+      s.rect(midX, midY, len);
     }
   }
 };
