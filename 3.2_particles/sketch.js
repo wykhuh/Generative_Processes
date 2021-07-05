@@ -6,6 +6,9 @@ const sketch = (s) => {
   let easing = 0.2; // a value to temper acceleration
   let damping = 1; // value to temper velocity; high
 
+  // create vector that points downwards
+  let gravity = new p5.Vector(0, 0.01);
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     // coordinates pased to rectangle refers to center of rectangle instead of
@@ -37,6 +40,7 @@ const sketch = (s) => {
     // update/render all agents
     for (let agent of group) {
       move(agent);
+      applyForce(agent, gravity);
       render(agent);
     }
 
@@ -79,6 +83,10 @@ const sketch = (s) => {
     // set acceleration to zero
     agent.acceleration.mult(0);
     agent.lifespan--;
+  }
+
+  function applyForce(agent, force) {
+    agent.acceleration.add(force);
   }
 
   function followMouse(agent) {
