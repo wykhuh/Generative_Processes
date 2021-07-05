@@ -24,12 +24,14 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
 
-    s.rectMode(s.CENTER);
+    s.imageMode(s.CENTER);
     for (let x = 0; x < s.width; x += grid) {
       for (let y = 0; y < s.height; y += grid) {
         s.push();
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
+
+        s.image(img, 0, 0, grid, grid);
 
         s.pop();
       }
