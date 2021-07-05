@@ -56,17 +56,26 @@ const sketch = (s) => {
     s.rectMode(s.CENTER);
 
     for (let frame of recorder) {
-      s.line(frame.x1, frame.y1, frame.x2, frame.y2);
+      // save the origin
+      s.push();
 
       // lerp calculates a number between two numbers
       // 0.5 finds midpoint
       let midX = s.lerp(frame.x1, frame.x2, 0.5);
       let midY = s.lerp(frame.y1, frame.y2, 0.5);
+      s.translate(midX, midY);
 
       // get the distance between two points
       let len = s.dist(frame.x1, frame.y1, frame.x2, frame.y2);
 
-      s.rect(midX, midY, len);
+      // get the angle between the two points
+      let angle = s.atan2(frame.y1 - frame.y2, frame.x1 - frame.x2);
+
+      s.rotate(angle);
+      s.rect(0, 0, len);
+
+      // restore origin
+      s.pop();
     }
   }
 };
