@@ -25,6 +25,7 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
     s.fill(0);
+    s.noStroke();
 
     s.rectMode(s.CENTER);
 
@@ -41,6 +42,8 @@ const sketch = (s) => {
         s.pop();
       }
     }
+
+    res = s.map(s.mouseX, 0, s.width, 0.01, 0.001);
   };
 };
 
