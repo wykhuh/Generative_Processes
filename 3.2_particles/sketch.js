@@ -53,6 +53,7 @@ const sketch = (s) => {
       position: new p5.Vector(x, y),
       velocity: new p5.Vector(vx, vy),
       acceleration: new p5.Vector(),
+      lifespan: 300, // number of frames
     };
   }
 
@@ -71,9 +72,9 @@ const sketch = (s) => {
     agent.velocity.add(agent.acceleration);
     agent.velocity.mult(damping);
     agent.position.add(agent.velocity);
-
     // set acceleration to zero
     agent.acceleration.mult(0);
+    agent.lifespan--;
   }
 
   function followMouse(agent) {
@@ -93,12 +94,13 @@ const sketch = (s) => {
   function cleanUp(group) {
     for (let i = group.length - 1; i >= 0; i--) {
       let agent = group[i];
-      // remove agent from group if it is outside box.
-      // set boundary bigger than the window size so we delete ojects
-      // once they are off screen
+      // remove agent from group
+      // set boundary bigger than the window size so we delete objects
+      // once they are offscreen
       if (
         isAgentInsideBox(agent, -50, -50, s.width + 100, s.height + 100) ==
-        false
+          false ||
+        agent.lifespan <= 0
       ) {
         group.splice(i, 1);
       }
