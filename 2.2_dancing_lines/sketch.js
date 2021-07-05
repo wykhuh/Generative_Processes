@@ -1,12 +1,15 @@
 import p5 from "p5";
-
+import * as dat from "dat.gui";
 const sketch = (s) => {
   let settings = {
     res: 0.01,
   };
+  let gui;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    gui = new dat.GUI();
+    gui.add(settings, "res", 0.001, 0.02);
   };
 
   s.windowResized = () => {
