@@ -34,6 +34,8 @@ const sketch = (s) => {
     let y2 = s.noise(300 + s.frameCount * settings.res) * s.height;
 
     s.point(x2, y2);
+
+    s.line(x1, y1, x2, y2);
   };
 };
 
