@@ -2,7 +2,7 @@ import p5 from "p5";
 
 const sketch = (s) => {
   let highway = "highway.jpg";
-  let grid = 100;
+  let grid = 160;
   let img;
 
   s.setup = () => {
@@ -26,8 +26,8 @@ const sketch = (s) => {
 
     s.imageMode(s.CENTER);
 
-    let sx = s.map(s.mouseX, 0, s.width, 0, img.width);
-    let sy = s.map(s.mouseY, 0, s.height, 0, img.height);
+    let sx = s.map(s.mouseX, 0, s.width, 0, img.width - grid);
+    let sy = s.map(s.mouseY, 0, s.height, 0, img.height - grid);
 
     for (let x = 0; x < s.width; x += grid) {
       for (let y = 0; y < s.height; y += grid) {
@@ -40,6 +40,16 @@ const sketch = (s) => {
         s.pop();
       }
     }
+
+    s.imageMode(s.CORNER);
+    s.noFill();
+
+    s.scale(0.25, 0.25);
+    s.image(img, 0, 0);
+
+    s.stroke(255);
+    s.strokeWeight(10);
+    s.rect(sx, sy, grid, grid);
   };
 };
 
