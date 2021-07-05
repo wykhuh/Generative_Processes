@@ -20,6 +20,7 @@ const sketch = (s) => {
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
         s.rect(0, 0, grid);
+        s.rect(0, 0, grid / 2);
         s.pop();
       }
     }
