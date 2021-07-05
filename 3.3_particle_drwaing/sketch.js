@@ -38,8 +38,8 @@ const sketch = (s) => {
     //   create new agents over time
     if (s.mouseIsPressed) {
       let newAgent = createAgent(
-        s.width / 2,
-        s.height / 2,
+        s.mouseX,
+        s.mouseY,
         s.random(-1, 1),
         s.random(-1, 1)
       );
