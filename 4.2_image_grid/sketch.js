@@ -28,8 +28,9 @@ const sketch = (s) => {
 
     let res = 0.001;
     let n = s.frameCount * res;
-    let sx = s.map(s.noise(n), 0, 1, 0, img.width - grid);
-    let sy = s.map(s.noise(n + 100), 0, 1, 0, img.height - grid);
+    let zoom = s.map(s.noise(n + 200), 0, 1, 0, 100);
+    let sx = s.map(s.noise(n), 0, 1, 0, img.width - (grid + zoom));
+    let sy = s.map(s.noise(n + 100), 0, 1, 0, img.height - (grid + zoom));
 
     for (let x = 0; x < s.width; x += grid) {
       for (let y = 0; y < s.height; y += grid) {
@@ -46,16 +47,16 @@ const sketch = (s) => {
           yScale = -1;
         }
         s.scale(xScale, yScale);
-        s.image(img, 0, 0, grid, grid, sx, sy, grid, grid);
+        s.image(img, 0, 0, grid, grid, sx, sy, grid + zoom, grid + zoom);
 
         s.pop();
       }
     }
 
-    createPreview(img, grid, sx, sy);
+    createPreview(img, grid, sx, sy, zoom);
   };
 
-  function createPreview(img, grid, sx, sy) {
+  function createPreview(img, grid, sx, sy, zoom) {
     s.imageMode(s.CORNER);
     s.noFill();
 
@@ -64,7 +65,7 @@ const sketch = (s) => {
 
     s.stroke(255);
     s.strokeWeight(10);
-    s.rect(sx, sy, grid, grid);
+    s.rect(sx, sy, grid + zoom, grid + zoom);
   }
 };
 
