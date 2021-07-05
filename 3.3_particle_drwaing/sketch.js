@@ -23,7 +23,7 @@ const sketch = (s) => {
   s.draw = () => {
     s.noFill();
     s.stroke(255);
-    s.background(0);
+    s.background(33, 50);
 
     //   create new agents over time
     if (s.mouseIsPressed) {
@@ -46,10 +46,6 @@ const sketch = (s) => {
     }
 
     cleanUp(group);
-
-    // display number of agents
-    s.fill(255);
-    s.text(group.length, 20, 20);
   };
 
   // create a moving item
