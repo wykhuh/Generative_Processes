@@ -8,16 +8,18 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    s.background(0);
+
     gui = new dat.GUI();
     gui.add(settings, "res", 0.001, 0.02);
   };
 
   s.windowResized = () => {
     s.resizeCanvas(s.windowWidth, s.windowHeight);
+    s.background(0);
   };
 
   s.draw = () => {
-    s.background(0);
     s.stroke(255);
     s.strokeWeight(5);
 
