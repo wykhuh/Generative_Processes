@@ -20,8 +20,8 @@ const sketch = (s) => {
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
 
-        let c1 = s.color(s.random(255));
-        let c2 = s.color(s.random(255));
+        let c1 = s.color(s.random(255), s.random(255), s.random(255));
+        let c2 = s.color(s.random(255), s.random(255), s.random(255));
 
         s.noStroke();
 
