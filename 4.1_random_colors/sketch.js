@@ -2,6 +2,8 @@ import p5 from "p5";
 
 const sketch = (s) => {
   let grid = 40;
+  let palette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
   };
@@ -20,8 +22,8 @@ const sketch = (s) => {
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
 
-        let c1 = s.color(s.random(255), s.random(255), s.random(255));
-        let c2 = s.color(s.random(255), s.random(255), s.random(255));
+        let c1 = s.random(palette);
+        let c2 = s.random(palette);
 
         s.noStroke();
 
