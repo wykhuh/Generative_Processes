@@ -30,7 +30,13 @@ const sketch = (s) => {
     position.y += velocity.y;
 
     s.rect(position.x, position.y, 50);
+
+    drawVector();
   };
+
+  function drawVector() {
+    s.line(0, 0, position.x, position.y);
+  }
 };
 
 new p5(sketch);
