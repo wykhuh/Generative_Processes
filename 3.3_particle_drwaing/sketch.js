@@ -54,18 +54,21 @@ const sketch = (s) => {
       move(agent);
       twitch(agent);
       applyForce(agent, gravity);
-      render(agent);
+      // render(agent);
     }
 
     // draw lines connecting agents
     for (let i = 0; i < group.length; i++) {
-      for (let j = 0; j < group.length; j++) {
+      for (let j = i; j < group.length; j++) {
         if (i != j) {
           const x1 = group[i].position.x;
           const y1 = group[i].position.y;
           const x2 = group[j].position.x;
           const y2 = group[j].position.y;
-          s.line(x1, y1, x2, y2);
+          let d = s.dist(x1, y1, x2, y2);
+          if (d > 10 && d < 50) {
+            s.line(x1, y1, x2, y2);
+          }
         }
       }
     }
