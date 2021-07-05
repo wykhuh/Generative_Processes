@@ -2,11 +2,18 @@ import p5 from "p5";
 import * as dat from "dat.gui";
 
 const sketch = (s) => {
-  let size = 5; // height of range
-  let res = 0.1; // how much random is moved up and down
+  let gui;
+  let settings = {
+    size: 15, // height of range
+    res: 0.01, // how much random is moved up and down
+  };
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+
+    gui = new dat.GUI();
+    gui.add(settings, "size", 5, 200);
+    gui.add(settings, "res", 0.001, 0.1);
   };
 
   s.windowResized = () => {
@@ -29,8 +36,7 @@ const sketch = (s) => {
     // a line
     s.beginShape();
     for (let x = 0; x < s.width; x++) {
-      r += s.random(-res, res);
-      let y = s.map(r, 0, 1, -size, size);
+      r += s.random(-settings.res, settings.res);
       s.vertex(x, y);
     }
     s.endShape();
