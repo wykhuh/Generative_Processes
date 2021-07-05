@@ -20,14 +20,20 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
+    s.background(0);
     s.stroke(255);
     s.strokeWeight(5);
 
-    let x = s.noise(s.frameCount * settings.res) * s.width;
+    let x1 = s.noise(s.frameCount * settings.res) * s.width;
     // add constant so that noise for x and y will return a different value
-    let y = s.noise(100 + s.frameCount * settings.res) * s.height;
+    let y1 = s.noise(100 + s.frameCount * settings.res) * s.height;
 
-    s.point(x, y);
+    s.point(x1, y1);
+
+    let x2 = s.noise(200 + s.frameCount * settings.res) * s.width;
+    let y2 = s.noise(300 + s.frameCount * settings.res) * s.height;
+
+    s.point(x2, y2);
   };
 };
 
