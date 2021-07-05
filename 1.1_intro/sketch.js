@@ -27,4 +27,4 @@ const sketch = (s) => {
   };
 };
 
-const sketchInstance = new p5(sketch);
+new p5(sketch);
