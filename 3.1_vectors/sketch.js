@@ -33,6 +33,9 @@ const sketch = (s) => {
     // needed velocity vector in order to make square follow mouse
     velocity = target.sub(position);
 
+    // reduce velocity
+    velocity.mult(0.1);
+
     // add vectors
     position.add(velocity);
 
