@@ -41,6 +41,10 @@ const sketch = (s) => {
       }
     }
 
+    // createPreview(img, grid, sx, sy);
+  };
+
+  function createPreview(img, grid, sx, sy) {
     s.imageMode(s.CORNER);
     s.noFill();
 
@@ -50,7 +54,7 @@ const sketch = (s) => {
     s.stroke(255);
     s.strokeWeight(10);
     s.rect(sx, sy, grid, grid);
-  };
+  }
 };
 
 new p5(sketch);
