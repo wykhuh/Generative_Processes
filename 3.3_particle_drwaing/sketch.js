@@ -7,6 +7,7 @@ const sketch = (s) => {
   let settings = {
     damping: 1, // value to temper velocity; high
     bgAlpha: 255,
+    strokeAlpha: 128,
     gravity: 0.01,
     lifespan: 300,
   };
@@ -19,6 +20,7 @@ const sketch = (s) => {
     gui = new dat.GUI();
     gui.add(settings, "damping", 0.95, 1);
     gui.add(settings, "bgAlpha", 0, 255);
+    gui.add(settings, "strokeAlpha", 0, 255);
     gui.add(settings, "gravity", 0, 0.1);
     gui.add(settings, "lifespan", 100, 1000);
   };
@@ -29,7 +31,7 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.noFill();
-    s.stroke(255);
+    s.stroke(255, settings.strokeAlpha);
     s.background(33, settings.bgAlpha);
 
     // create vector that points downwards
