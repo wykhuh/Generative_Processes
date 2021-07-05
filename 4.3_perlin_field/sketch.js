@@ -35,9 +35,13 @@ const sketch = (s) => {
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
 
-        let grey = s.map(s.noise(x * res, y * res), 0, 1, 0, 255);
-        s.fill(grey);
-        s.rect(0, 0, grid);
+        let v = new p5.Vector();
+        v.x = s.map(s.noise(x * res, y * res, 1), 0, 1, -1, 1);
+        v.y = s.map(s.noise(x * res, y * res, 10), 0, 1, -1, 1);
+        v.mult(grid * 2);
+
+        s.stroke(255);
+        s.line(0, 0, v.x, v.y);
 
         s.pop();
       }
