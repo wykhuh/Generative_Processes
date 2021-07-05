@@ -3,17 +3,31 @@ import p5 from "p5";
 const sketch = (s) => {
   let highway = "highway.jpg";
   let grid = 40;
-  let palette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
+  let palette = [];
   let img;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+
+    img.resize(8, 8);
+    img.loadPixels();
+
+    for (let i = 0; i < img.pixels.length; i += 4) {
+      let r = img.pixels[i];
+      let g = img.pixels[i + 1];
+      let b = img.pixels[i + 2];
+      // convert color object to a string
+      let c = s.color(r, g, b).toString();
+      palette.push(c);
+    }
   };
 
-  // use prload to load assets. Once assets are load, then
-  // setup is fired.
+  // use preload to load assets. Once assets are load, then setup is fired.
   s.preload = () => {
     img = s.loadImage(highway);
+
+    // allow access to img from dev console
+    window.img = img;
   };
 
   s.windowResized = () => {
@@ -31,7 +45,7 @@ const sketch = (s) => {
         s.translate(x + grid / 2, y + grid / 2);
 
         let c1 = s.random(palette);
-        let c2;
+        let c2 = s.random(palette);
         while ((c2 = s.random(palette)) == c1) {}
 
         s.noStroke();
