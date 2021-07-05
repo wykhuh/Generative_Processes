@@ -91,10 +91,15 @@ const sketch = (s) => {
   }
 
   function cleanUp(group) {
-    for (let i = 0; i < group.length; i++) {
+    for (let i = group.length - 1; i >= 0; i--) {
       let agent = group[i];
-      // remove agent from group if it is outside box
-      if (isAgentInsideBox(agent, 0, 0, s.width, s.height) == false) {
+      // remove agent from group if it is outside box.
+      // set boundary bigger than the window size so we delete ojects
+      // once they are off screen
+      if (
+        isAgentInsideBox(agent, -50, -50, s.width + 100, s.height + 100) ==
+        false
+      ) {
         group.splice(i, 1);
       }
     }
