@@ -17,6 +17,8 @@ const sketch = (s) => {
     gui.add(settings, "res", 0.001, 0.02);
     gui.add(settings, "alpha", 5, 255);
     gui.add(settings, "nFrames", 5, 500);
+
+    gui.remember(settings);
   };
 
   s.windowResized = () => {
