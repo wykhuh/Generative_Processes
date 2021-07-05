@@ -53,7 +53,7 @@ const sketch = (s) => {
       }
     }
 
-    createPreview(img, grid, sx, sy, zoom);
+    // createPreview(img, grid, sx, sy, zoom);
   };
 
   function createPreview(img, grid, sx, sy, zoom) {
