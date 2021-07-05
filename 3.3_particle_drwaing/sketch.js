@@ -6,9 +6,9 @@ const sketch = (s) => {
   let gui;
   let settings = {
     damping: 1, // value to temper velocity; high
-    bgAlpha: 255,
-    strokeAlpha: 128,
-    gravity: 0.01,
+    bgAlpha: 0,
+    strokeAlpha: 60,
+    gravity: 0.0,
     lifespan: 300,
   };
 
@@ -23,10 +23,12 @@ const sketch = (s) => {
     gui.add(settings, "strokeAlpha", 0, 255);
     gui.add(settings, "gravity", 0, 0.1);
     gui.add(settings, "lifespan", 100, 1000);
+    s.background(33);
   };
 
   s.windowResized = () => {
     s.resizeCanvas(s.windowWidth, s.windowHeight);
+    s.background(33);
   };
 
   s.draw = () => {
