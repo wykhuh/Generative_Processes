@@ -6,7 +6,7 @@ const sketch = (s) => {
   let acceleration = new p5.Vector();
 
   let easing = 0.1; // a value to temper acceleration
-  let damping = 0.9; // value to temper velocity
+  let damping = 0.5; // value to temper velocity; high
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -19,6 +19,8 @@ const sketch = (s) => {
 
     velocity.x = s.random(-1, 1);
     velocity.y = s.random(-1, 1);
+
+    s.background(0);
   };
 
   s.windowResized = () => {
@@ -26,7 +28,6 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    s.background(0);
     s.noFill();
     s.stroke(255);
 
@@ -56,7 +57,7 @@ const sketch = (s) => {
     s.rect(0, 0, 50);
     s.pop();
 
-    drawVector();
+    // drawVector();
   };
 
   function drawVector() {
