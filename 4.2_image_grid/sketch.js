@@ -35,6 +35,15 @@ const sketch = (s) => {
         // set origin to center each cell
         s.translate(x + grid / 2, y + grid / 2);
 
+        let xScale = 1;
+        let yScale = 1;
+        if (x % (2 * grid) == 0) {
+          xScale = -1;
+        }
+        if (y % (2 * grid) == 0) {
+          yScale = -1;
+        }
+        s.scale(xScale, yScale);
         s.image(img, 0, 0, grid, grid, sx, sy, grid, grid);
 
         s.pop();
