@@ -3,6 +3,10 @@ import p5 from "p5";
 const sketch = (s) => {
   let position = new p5.Vector();
   let velocity = new p5.Vector();
+  let acceleration = new p5.Vector();
+
+  let easing = 0.1; // a value to temper acceleration
+  let damping = 0.9; // value to temper velocity
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -26,17 +30,22 @@ const sketch = (s) => {
     s.noFill();
     s.stroke(255);
 
+    // set acceleration to zero
+    acceleration.mult(0);
+
     // vector for mouse position
     let target = new p5.Vector(s.mouseX, s.mouseY);
 
     // subtract position vector from current mouse vector to calculate the
-    // needed velocity vector in order to make square follow mouse
-    velocity = target.sub(position);
-
-    // reduce velocity
-    velocity.mult(0.1);
+    // needed vector in order to make square follow mouse
+    let diff = target.sub(position);
+    // reduce vector
+    diff.mult(easing);
 
     // add vectors
+    acceleration.add(diff);
+    velocity.add(acceleration);
+    velocity.mult(damping);
     position.add(velocity);
 
     s.push();
