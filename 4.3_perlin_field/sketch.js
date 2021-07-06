@@ -46,7 +46,7 @@ const sketch = (s) => {
 
       move(agent);
 
-      s.stroke(255, 35);
+      s.stroke(agent.color, 35);
       s.point(x, y);
     }
     cleanup(group);
@@ -61,11 +61,19 @@ const sketch = (s) => {
   }
 
   function createAgent() {
-    return {
+    let temp = {
       position: new p5.Vector(s.random(s.width), s.random(s.height)),
       velocity: new p5.Vector(),
       lifespan: 500,
+      color: 255,
     };
+
+    // set color of agent to the color of the image at the corresponding position
+    let sx = s.map(temp.position.x, 0, s.width, 0, img.width);
+    let sy = s.map(temp.position.y, 0, s.height, 0, img.height);
+    temp.color = img.get(sx, sy);
+
+    return temp;
   }
 
   function move(agent) {
