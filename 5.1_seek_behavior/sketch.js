@@ -1,13 +1,11 @@
 import p5 from "p5";
 
 const sketch = (s) => {
-  let agent;
+  let group = [];
   let damping = 1;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-
-    agent = createAgent();
   };
 
   s.windowResized = () => {
@@ -17,14 +15,20 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(255);
 
+    if (group.length < 25) {
+      group.push(createAgent());
+    }
+
     // create a vector for mouse
     let mouse = new p5.Vector(s.mouseX, s.mouseY);
 
-    // behaviors
-    seek(agent, mouse);
+    for (let agent of group) {
+      // behaviors
+      seek(agent, mouse);
 
-    render(agent);
-    move(agent);
+      render(agent);
+      move(agent);
+    }
   };
 
   function createAgent() {
