@@ -30,7 +30,9 @@ const sketch = (s) => {
     s.strokeWeight(1);
 
     // add agents over time
-    group.push(createAgent());
+    for (let i = 0; i < 100; i++) {
+      group.push(createAgent());
+    }
 
     // move and draw agents
     for (let agent of group) {
