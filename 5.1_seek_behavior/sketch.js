@@ -36,8 +36,8 @@ const sketch = (s) => {
       pos: new p5.Vector(s.random(s.width), s.random(s.height)),
       vel: new p5.Vector(s.random(-1, 1), s.random(-1, 1)),
       acc: new p5.Vector(),
-      maxSpeed: 4,
-      maxForce: 0.1,
+      maxSpeed: s.random(2, 6),
+      maxForce: s.random(0.05, 0.2),
     };
     return agent;
   }
