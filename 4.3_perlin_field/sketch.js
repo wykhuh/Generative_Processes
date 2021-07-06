@@ -73,7 +73,10 @@ const sketch = (s) => {
     // set color of agent to the color of the image at the corresponding position
     let sx = s.map(temp.position.x, 0, s.width, 0, img.width);
     let sy = s.map(temp.position.y, 0, s.height, 0, img.height);
-    temp.color = img.get(sx, sy);
+    // img.get returns [red, green, blue, alpha]
+    // color() creates color object
+    temp.color = s.color(img.get(sx, sy));
+    temp.color.setAlpha(25);
 
     return temp;
   }
