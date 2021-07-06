@@ -33,6 +33,7 @@ const sketch = (s) => {
       vel: new p5.Vector(s.random(-1, 1), s.random(-1, 1)),
       acc: new p5.Vector(),
       maxSpeed: 4,
+      maxForce: 0.1,
     };
     return agent;
   }
@@ -66,7 +67,11 @@ const sketch = (s) => {
     targetDirection.normalize(); // normalize set length to one
     targetDirection.mult(agent.maxSpeed);
 
-    applyForce(agent, targetDirection);
+    // how much do we need to turn to achieve target direction
+    let steer = p5.Vector.sub(targetDirection, agent.vel);
+    steer.limit(agent.maxForce);
+
+    applyForce(agent, steer);
   }
 };
 
