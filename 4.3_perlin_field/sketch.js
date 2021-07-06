@@ -5,6 +5,7 @@ const sketch = (s) => {
   let grid = 20;
   let img;
   let res = 0.01;
+  let damping = 0.95;
   let group = [];
 
   s.setup = () => {
@@ -40,6 +41,7 @@ const sketch = (s) => {
       v.x = s.map(s.noise(x * res, y * res, 1), 0, 1, -1, 1);
       v.y = s.map(s.noise(x * res, y * res, 10), 0, 1, -1, 1);
       agent.velocity.add(v);
+      agent.velocity.mult(damping);
 
       move(agent);
 
