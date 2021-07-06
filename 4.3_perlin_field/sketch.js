@@ -49,7 +49,10 @@ const sketch = (s) => {
       move(agent);
 
       s.stroke(agent.color, 35);
-      s.point(x, y);
+      // only draw point at certain frames to create discontinous line
+      if (agent.lifespan % 3 == 0) {
+        s.point(x, y);
+      }
     }
     cleanup(group);
   };
