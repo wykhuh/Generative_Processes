@@ -16,6 +16,7 @@ const sketch = (s) => {
     s.background(255);
 
     render(agent);
+    move(agent);
   };
 
   function createAgent() {
@@ -36,6 +37,14 @@ const sketch = (s) => {
     s.rotate(agent.vel.heading());
     s.rect(0, 0, 30, 15);
     s.pop();
+  }
+
+  function move(agent) {
+    agent.vel.add(agent.acc);
+    agent.pos.add(agent.vel);
+
+    // reset acceleration in between each frame
+    agent.acc.mult(0);
   }
 };
 
