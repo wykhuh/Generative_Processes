@@ -4,8 +4,8 @@ const sketch = (s) => {
   let highway = "highway.jpg";
   let grid = 20;
   let img;
-  let res = 0.004;
-  let damping = 0.5;
+  let res = 0.008;
+  let damping = 0.7;
   let group = [];
 
   s.setup = () => {
@@ -64,7 +64,10 @@ const sketch = (s) => {
 
   function createAgent() {
     let temp = {
-      position: new p5.Vector(s.random(s.width), s.random(s.height)),
+      position: new p5.Vector(
+        s.random(100, s.width - 100),
+        s.random(100, s.height - 100)
+      ),
       velocity: new p5.Vector(),
       lifespan: 500,
       color: 255,
