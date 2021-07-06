@@ -19,6 +19,12 @@ const sketch = (s) => {
     move(agent);
   };
 
+  s.mousePressed = () => {
+    let v = new p5.Vector(s.random(-1, 1), s.random(-1, 1));
+
+    applyForce(agent, v);
+  };
+
   function createAgent() {
     let agent = {
       pos: new p5.Vector(s.random(s.width), s.random(s.height)),
@@ -45,6 +51,10 @@ const sketch = (s) => {
 
     // reset acceleration in between each frame
     agent.acc.mult(0);
+  }
+
+  function applyForce(agent, force) {
+    agent.acc.add(force);
   }
 };
 
