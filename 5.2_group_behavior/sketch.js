@@ -4,6 +4,7 @@ const sketch = (s) => {
   let group = [];
   let damping = 1;
 
+  //----------------------------------------------
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
   };
@@ -15,7 +16,7 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(255);
 
-    if (group.length < 100) {
+    if (group.length < 150) {
       group.push(createAgent());
     }
 
@@ -25,6 +26,7 @@ const sketch = (s) => {
     for (let agent of group) {
       // behaviors
       // seek(agent, mouse, 0.5);
+
       separate(agent, group, 1.5);
       align(agent, group);
       cohesion(agent, group);
@@ -35,6 +37,7 @@ const sketch = (s) => {
     }
   };
 
+  //----------------------------------------------
   function createAgent() {
     let agent = {
       pos: new p5.Vector(s.random(s.width), s.random(s.height)),
@@ -89,7 +92,8 @@ const sketch = (s) => {
 
   function seek(agent, target, strength = 1) {
     let targetDirection = p5.Vector.sub(target, agent.pos);
-    targetDirection.normalize(); // normalize set length to one
+    // normalize set length to one
+    targetDirection.normalize();
     targetDirection.mult(agent.maxSpeed);
 
     steer(agent, targetDirection, strength);
