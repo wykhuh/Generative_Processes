@@ -2,6 +2,8 @@ import p5 from "p5";
 
 const sketch = (s) => {
   let agent;
+  let damping = 1;
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
@@ -17,12 +19,6 @@ const sketch = (s) => {
 
     render(agent);
     move(agent);
-  };
-
-  s.mousePressed = () => {
-    let v = new p5.Vector(s.random(-1, 1), s.random(-1, 1));
-
-    applyForce(agent, v);
   };
 
   function createAgent() {
@@ -47,6 +43,7 @@ const sketch = (s) => {
 
   function move(agent) {
     agent.vel.add(agent.acc);
+    agent.vel.mult(damping);
     agent.pos.add(agent.vel);
 
     // reset acceleration in between each frame
