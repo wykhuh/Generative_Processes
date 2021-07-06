@@ -26,9 +26,9 @@ const sketch = (s) => {
       // behaviors
       // seek(agent, mouse);
       separate(agent, group);
-
-      render(agent);
       move(agent);
+      wrap(agent);
+      render(agent);
     }
   };
 
@@ -61,6 +61,22 @@ const sketch = (s) => {
 
     // reset acceleration in between each frame
     agent.acc.mult(0);
+  }
+
+  function wrap(agent) {
+    if (agent.pos.x < -100) {
+      agent.pos.x = s.width + 100;
+    }
+    if (agent.pos.y < -100) {
+      agent.pos.y = s.height + 100;
+    }
+
+    if (agent.pos.x > s.width + 100) {
+      agent.pos.x = -100;
+    }
+    if (agent.pos.y > s.height + 100) {
+      agent.pos.y = -100;
+    }
   }
 
   function applyForce(agent, force) {
