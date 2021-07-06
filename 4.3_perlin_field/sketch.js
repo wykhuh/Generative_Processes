@@ -5,6 +5,7 @@ const sketch = (s) => {
   let grid = 20;
   let img;
   let res = 0.01;
+  let group = [];
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -24,6 +25,41 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.background(0);
+    s.strokeWeight(2);
+
+    // add agents over time
+    group.push(createAgent());
+
+    // move and draw agents
+    for (let agent of group) {
+      let x = agent.position.x;
+      let y = agent.position.y;
+
+      // create velocity based on Perlin noise
+      let v = new p5.Vector();
+      v.x = s.map(s.noise(x * res, y * res, 1), 0, 1, -1, 1);
+      v.y = s.map(s.noise(x * res, y * res, 10), 0, 1, -1, 1);
+      agent.velocity.add(v);
+
+      move(agent);
+
+      s.stroke(255);
+      s.point(x, y);
+    }
+  };
+
+  function createAgent() {
+    return {
+      position: new p5.Vector(s.random(s.width), s.random(s.height)),
+      velocity: new p5.Vector(),
+    };
+  }
+
+  function move(agent) {
+    agent.position.add(agent.velocity);
+  }
+
+  function drawNoiseField() {
     s.fill(0);
     s.noStroke();
 
@@ -46,9 +82,7 @@ const sketch = (s) => {
         s.pop();
       }
     }
-
-    res = s.map(s.mouseX, 0, s.width, 0.01, 0.001);
-  };
+  }
 };
 
 new p5(sketch);
