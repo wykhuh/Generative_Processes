@@ -25,7 +25,7 @@ const sketch = (s) => {
 
     for (let agent of group) {
       // behaviors
-      // seek(agent, mouse, 0.5);
+      seek(agent, mouse, 0.5);
 
       separate(agent, group, 1.5);
       align(agent, group);
