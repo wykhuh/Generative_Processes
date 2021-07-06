@@ -25,7 +25,7 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.background(0);
-    s.strokeWeight(2);
+    s.strokeWeight(8);
 
     // add agents over time
     group.push(createAgent());
@@ -46,6 +46,7 @@ const sketch = (s) => {
       s.stroke(255);
       s.point(x, y);
     }
+    drawNoiseField();
   };
 
   function createAgent() {
@@ -60,6 +61,7 @@ const sketch = (s) => {
   }
 
   function drawNoiseField() {
+    s.strokeWeight(1);
     s.fill(0);
     s.noStroke();
 
