@@ -10,6 +10,7 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    s.background(0);
   };
 
   // use preload to load assets. Once assets are load, then setup is fired.
@@ -22,11 +23,11 @@ const sketch = (s) => {
 
   s.windowResized = () => {
     s.resizeCanvas(s.windowWidth, s.windowHeight);
+    s.background(0);
   };
 
   s.draw = () => {
-    s.background(0);
-    s.strokeWeight(8);
+    s.strokeWeight(1);
 
     // add agents over time
     group.push(createAgent());
@@ -48,7 +49,6 @@ const sketch = (s) => {
       s.stroke(255);
       s.point(x, y);
     }
-    drawNoiseField();
   };
 
   function createAgent() {
