@@ -24,8 +24,8 @@ const sketch = (s) => {
 
     for (let agent of group) {
       // behaviors
-      // seek(agent, mouse);
-      separate(agent, group);
+      seek(agent, mouse, 0.5);
+      separate(agent, group, 1.5);
       move(agent);
       wrap(agent);
       render(agent);
@@ -79,27 +79,28 @@ const sketch = (s) => {
     }
   }
 
-  function applyForce(agent, force) {
+  function applyForce(agent, force, strength = 1) {
+    force.mult(strength);
     agent.acc.add(force);
   }
 
-  function seek(agent, target) {
+  function seek(agent, target, strength = 1) {
     let targetDirection = p5.Vector.sub(target, agent.pos);
     targetDirection.normalize(); // normalize set length to one
     targetDirection.mult(agent.maxSpeed);
 
-    steer(agent, targetDirection);
+    steer(agent, targetDirection, strength);
   }
 
-  function steer(agent, targetDirection) {
+  function steer(agent, targetDirection, strength = 1) {
     // how much do we need to turn to achieve target direction
     let steer = p5.Vector.sub(targetDirection, agent.vel);
     steer.limit(agent.maxForce);
 
-    applyForce(agent, steer);
+    applyForce(agent, steer, strength);
   }
 
-  function separate(agent, group) {
+  function separate(agent, group, strength = 1) {
     // only look at agents within a certain radius
     let separation = 40;
 
@@ -128,7 +129,7 @@ const sketch = (s) => {
       sum.div(count);
       sum.setMag(agent.maxspeed);
       // steer towards average sum vector
-      steer(agent, sum);
+      steer(agent, sum, strength);
     }
   }
 };
