@@ -15,7 +15,7 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(255);
 
-    if (group.length < 25) {
+    if (group.length < 100) {
       group.push(createAgent());
     }
 
@@ -26,6 +26,7 @@ const sketch = (s) => {
       // behaviors
       seek(agent, mouse, 0.5);
       separate(agent, group, 1.5);
+      align(agent, group);
       move(agent);
       wrap(agent);
       render(agent);
@@ -127,8 +128,35 @@ const sketch = (s) => {
     if (count > 0) {
       // get average value for all the diff vectors
       sum.div(count);
-      sum.setMag(agent.maxspeed);
+      sum.setMag(agent.maxSpeed);
       // steer towards average sum vector
+      steer(agent, sum, strength);
+    }
+  }
+
+  function align(agent, group, strength = 1) {
+    let neighborhood = 50;
+
+    let sum = new p5.Vector();
+    let count = 0;
+
+    // examine all other agents
+    for (let other of group) {
+      let d = agent.pos.dist(other.pos);
+      // only handle nearby agents
+      if (d > 0 && d < neighborhood) {
+        sum.add(other.vel);
+        count++;
+      }
+    }
+
+    // if agent is near other agents
+    if (count > 0) {
+      // get average value for all the diff vectors
+      sum.div(count);
+      sum.normalize();
+      sum.mult(agent.maxSpeed);
+      // steer towards the averaged sum
       steer(agent, sum, strength);
     }
   }
