@@ -24,7 +24,8 @@ const sketch = (s) => {
 
     for (let agent of group) {
       // behaviors
-      seek(agent, mouse);
+      // seek(agent, mouse);
+      separate(agent, group);
 
       render(agent);
       move(agent);
@@ -71,11 +72,48 @@ const sketch = (s) => {
     targetDirection.normalize(); // normalize set length to one
     targetDirection.mult(agent.maxSpeed);
 
+    steer(agent, targetDirection);
+  }
+
+  function steer(agent, targetDirection) {
     // how much do we need to turn to achieve target direction
     let steer = p5.Vector.sub(targetDirection, agent.vel);
     steer.limit(agent.maxForce);
 
     applyForce(agent, steer);
+  }
+
+  function separate(agent, group) {
+    // only look at agents within a certain radius
+    let separation = 40;
+
+    let sum = new p5.Vector();
+    let count = 0;
+
+    // examine all other agents
+    for (let other of group) {
+      let d = agent.pos.dist(other.pos);
+      // only handle nearby agents
+      if (d > 0 && d < separation) {
+        let diff = p5.Vector.sub(agent.pos, other.pos);
+        // make all the diff vectors the same
+        diff.normalize();
+        // weight in favor of the closer objects
+        // objects that are close are more affected than objects farther away
+        diff.div(d);
+        sum.add(diff);
+        count++;
+      }
+    }
+
+    // if agent is near other agents
+    if (count > 0) {
+      // get average value for all the diff vectors
+      sum.div(count);
+      sum.setMag(agent.maxspeed);
+      // steer towards average sum vector
+      steer(agent, sum);
+    }
   }
 };
 
