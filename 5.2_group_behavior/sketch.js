@@ -24,9 +24,11 @@ const sketch = (s) => {
 
     for (let agent of group) {
       // behaviors
-      seek(agent, mouse, 0.5);
+      // seek(agent, mouse, 0.5);
       separate(agent, group, 1.5);
       align(agent, group);
+      cohesion(agent, group);
+
       move(agent);
       wrap(agent);
       render(agent);
@@ -156,6 +158,31 @@ const sketch = (s) => {
       sum.div(count);
       sum.normalize();
       sum.mult(agent.maxSpeed);
+      // steer towards the averaged sum
+      steer(agent, sum, strength);
+    }
+  }
+
+  function cohesion(agent, group, strength = 1) {
+    let neighborhood = 50;
+
+    let sum = new p5.Vector();
+    let count = 0;
+
+    // examine all other agents
+    for (let other of group) {
+      let d = agent.pos.dist(other.pos);
+      // only handle nearby agents
+      if (d > 0 && d < neighborhood) {
+        sum.add(other.pos);
+        count++;
+      }
+    }
+
+    // if agent is near other agents
+    if (count > 0) {
+      // get average value for all the diff vectors
+      sum.div(count);
       // steer towards the averaged sum
       steer(agent, sum, strength);
     }
