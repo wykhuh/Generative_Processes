@@ -17,6 +17,12 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(255);
 
+    // create a vector for mouse
+    let mouse = new p5.Vector(s.mouseX, s.mouseY);
+
+    // behaviors
+    seek(agent, mouse);
+
     render(agent);
     move(agent);
   };
@@ -26,6 +32,7 @@ const sketch = (s) => {
       pos: new p5.Vector(s.random(s.width), s.random(s.height)),
       vel: new p5.Vector(s.random(-1, 1), s.random(-1, 1)),
       acc: new p5.Vector(),
+      maxSpeed: 4,
     };
     return agent;
   }
@@ -52,6 +59,14 @@ const sketch = (s) => {
 
   function applyForce(agent, force) {
     agent.acc.add(force);
+  }
+
+  function seek(agent, target) {
+    let targetDirection = p5.Vector.sub(target, agent.pos);
+    targetDirection.normalize(); // normalize set length to one
+    targetDirection.mult(agent.maxSpeed);
+
+    applyForce(agent, targetDirection);
   }
 };
 
