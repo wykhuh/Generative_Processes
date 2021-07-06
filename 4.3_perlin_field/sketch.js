@@ -4,8 +4,8 @@ const sketch = (s) => {
   let highway = "highway.jpg";
   let grid = 20;
   let img;
-  let res = 0.01;
-  let damping = 0.95;
+  let res = 0.004;
+  let damping = 0.5;
   let group = [];
 
   s.setup = () => {
@@ -46,20 +46,31 @@ const sketch = (s) => {
 
       move(agent);
 
-      s.stroke(255);
+      s.stroke(255, 35);
       s.point(x, y);
     }
+    cleanup(group);
   };
+
+  function cleanup(group) {
+    for (let i = group.length - 1; i >= 0; i--) {
+      if (group[i].lifespan <= 0) {
+        group.splice(i, 1);
+      }
+    }
+  }
 
   function createAgent() {
     return {
       position: new p5.Vector(s.random(s.width), s.random(s.height)),
       velocity: new p5.Vector(),
+      lifespan: 500,
     };
   }
 
   function move(agent) {
     agent.position.add(agent.velocity);
+    agent.lifespan--;
   }
 
   function drawNoiseField() {
