@@ -3,6 +3,7 @@ import p5 from "p5";
 const sketch = (s) => {
   let group = [];
   let damping = 1;
+  let palette = ["#8ecae6", "#219ebc", "#023047", "#ffb703", "#fb8500"];
 
   //----------------------------------------------
   s.setup = () => {
@@ -45,18 +46,20 @@ const sketch = (s) => {
       acc: new p5.Vector(),
       maxSpeed: s.random(2, 6),
       maxForce: s.random(0.05, 0.2),
+      color: s.random(palette),
     };
     return agent;
   }
 
   function render(agent) {
     s.rectMode(s.CENTER);
+    s.stroke(agent.color);
     s.push();
     // set origin to position of the agent
     s.translate(agent.pos.x, agent.pos.y);
     // rotate the origin to same angle as the agent velocity
     s.rotate(agent.vel.heading());
-    s.line(0, 0, 20, 0);
+    s.line(-20, 0, 20, 0);
     s.pop();
   }
 
