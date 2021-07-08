@@ -31,10 +31,13 @@ const sketch = (s) => {
       // draw waveform
       s.stroke(255);
       let buffer = wave.getValue(0);
-      for (let i = 0; i < buffer.length; i++) {
-        let x = s.map(i, 0, buffer.length, 0, s.width);
-        let y = s.map(buffer[i], -1, 1, 0, s.height);
-        s.point(x, y);
+      for (let i = 1; i < buffer.length; i++) {
+        let x1 = s.map(i - 1, 0, buffer.length, 0, s.width);
+        let y1 = s.map(buffer[i - 1], -1, 1, 0, s.height);
+
+        let x2 = s.map(i, 0, buffer.length, 0, s.width);
+        let y2 = s.map(buffer[i], -1, 1, 0, s.height);
+        s.line(x1, y1, x2, y2);
       }
     } else {
       s.fill(255);
