@@ -8,6 +8,8 @@ const sketch = (s) => {
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     osc = new Tone.Oscillator().toDestination();
+
+    osc.volume.value = -15;
   };
 
   s.windowResized = () => {
