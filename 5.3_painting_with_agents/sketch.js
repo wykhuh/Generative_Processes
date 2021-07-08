@@ -14,7 +14,7 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    s.background(255);
+    // s.background(255);
 
     if (group.length < 150) {
       group.push(createAgent());
