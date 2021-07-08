@@ -1,10 +1,13 @@
 import p5 from "p5";
+import * as Tone from "tone";
 
 const sketch = (s) => {
   let ready = false;
+  let osc;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    osc = new Tone.Oscillator().toDestination();
   };
 
   s.windowResized = () => {
@@ -25,6 +28,7 @@ const sketch = (s) => {
   s.mousePressed = () => {
     if (!ready) {
       ready = true;
+      osc.start();
     }
   };
 };
