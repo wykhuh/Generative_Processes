@@ -56,7 +56,7 @@ const sketch = (s) => {
     s.translate(agent.pos.x, agent.pos.y);
     // rotate the origin to same angle as the agent velocity
     s.rotate(agent.vel.heading());
-    s.rect(0, 0, 30, 15);
+    s.point(0, 0);
     s.pop();
   }
 
