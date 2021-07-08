@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "@tonaljs/tonal": "^4.6.0",
     "dat.gui": "^0.7.7",
-    "p5": "^1.4.0"
+    "p5": "^1.4.0",
+    "tone": "^14.7.77"
   },
   "scripts": {
     "dev": "vite",

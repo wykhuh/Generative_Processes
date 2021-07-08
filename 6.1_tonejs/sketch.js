@@ -1,6 +1,8 @@
 import p5 from "p5";
 
 const sketch = (s) => {
+  let ready = false;
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
   };
@@ -10,7 +12,20 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    s.circle(30, 30, 30);
+    s.background(0);
+    if (ready) {
+    } else {
+      s.fill(255);
+      s.noStroke();
+      s.textAlign(s.CENTER);
+      s.text("Click to start sound", s.width / 2, s.height / 2);
+    }
+  };
+
+  s.mousePressed = () => {
+    if (!ready) {
+      ready = true;
+    }
   };
 };
 
