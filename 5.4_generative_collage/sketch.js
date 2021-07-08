@@ -128,6 +128,7 @@ const sketch = (s) => {
     // rotate the origin to same angle as the agent velocity
     s.rotate(agent.vel.heading());
 
+    s.tint(agent.color);
     s.image(agent.sprite, 0, 0);
     s.pop();
   }
