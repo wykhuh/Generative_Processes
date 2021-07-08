@@ -1,7 +1,8 @@
 import p5 from "p5";
+import highwayUrl from "./highway.jpg";
 
 const sketch = (s) => {
-  let highway = "highway.jpg";
+  let highway = highwayUrl;
   let grid = 20;
   let img;
   let res = 0.008;
