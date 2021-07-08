@@ -7,9 +7,10 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-    osc = new Tone.Oscillator().toDestination();
-
+    osc = new Tone.Oscillator(); // default is 440 Hz, A4
     osc.volume.value = -15;
+    osc.frequency.value = 220; // 220, A3
+    osc.toDestination();
   };
 
   s.windowResized = () => {
