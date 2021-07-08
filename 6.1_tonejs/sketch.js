@@ -4,18 +4,26 @@ import * as Tone from "tone";
 const sketch = (s) => {
   let ready = false;
   let osc;
+  let osc2;
   let wave;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    // osc frequency changes with mouse position
     osc = new Tone.Oscillator(); // default is 440 Hz, A4
     osc.frequency.value = 220; // 220, A3
+    osc.volume.value = -9;
     osc.toDestination();
+
+    // osc2 frequency stays at 220
+    osc2 = new Tone.Oscillator();
+    osc2.frequency.value = 220;
+    osc2.volume.value = -9;
+    osc2.toDestination();
 
     wave = new Tone.Waveform();
     osc.connect(wave);
-
-    osc.volume.value = -9;
+    osc2.connect(wave);
   };
 
   s.windowResized = () => {
@@ -66,6 +74,7 @@ const sketch = (s) => {
     if (!ready) {
       ready = true;
       osc.start();
+      osc2.start();
     }
   };
 };
