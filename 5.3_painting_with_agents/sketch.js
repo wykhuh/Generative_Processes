@@ -15,6 +15,7 @@ const sketch = (s) => {
   };
 
   let gui;
+  let paused = false;
 
   //----------------------------------------------
   s.setup = () => {
@@ -33,6 +34,18 @@ const sketch = (s) => {
 
   s.windowResized = () => {
     s.resizeCanvas(s.windowWidth, s.windowHeight);
+  };
+
+  s.keyPressed = () => {
+    if (s.key == " ") {
+      if (paused == false) {
+        s.noLoop();
+        paused = true;
+      } else {
+        s.loop();
+        paused = false;
+      }
+    }
   };
 
   s.draw = () => {
