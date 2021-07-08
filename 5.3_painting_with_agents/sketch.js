@@ -15,9 +15,9 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    // s.background(255);
+    s.background(255);
 
-    if (group.length < 150) {
+    if (group.length < 125) {
       group.push(createAgent());
     }
 
@@ -28,6 +28,7 @@ const sketch = (s) => {
       // behaviors
       // seek(agent, mouse, 0.5);
 
+      twitch(agent, 0.3);
       separate(agent, group, 1.5);
       align(agent, group);
       cohesion(agent, group);
@@ -199,6 +200,22 @@ const sketch = (s) => {
       // steer towards the averaged sum
       seek(agent, sum, strength);
     }
+  }
+
+  function twitch(
+    agent,
+    strength = 1,
+    twitchRadius = s.PI / 2,
+    twitchRate = 0.01
+  ) {
+    let twitchDirection = agent.vel.copy();
+    // randomly generate an angle based on perlin noise
+    let n = s.noise((agent.pos.x + s.frameCount) * twitchRate);
+    let twitchAngle = s.map(n, 0, 1, -twitchRadius, twitchRadius);
+    // change the angle of the velocity
+    twitchDirection.rotate(twitchAngle);
+    // steer agent towards the angle
+    steer(agent, twitchDirection, strength);
   }
 };
 
