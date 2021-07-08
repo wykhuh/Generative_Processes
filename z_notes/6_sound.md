@@ -25,5 +25,9 @@ use .toDestination() instead of Tone.Master
 
 ```js
 // defaults to 440, A4
-new Tone.Oscillator();
+new Tone.Oscillator().toDestination();
 ```
+
+==
+
+oscillators have 4 types: sine (default), square, triangle, sawtooth

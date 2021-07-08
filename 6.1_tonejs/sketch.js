@@ -12,6 +12,7 @@ const sketch = (s) => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     // osc frequency changes with mouse position
     osc = new Tone.Oscillator(); // default is 440 Hz, A4
+    osc.type = "triangle";
     osc.volume.value = -9;
     osc.toDestination();
 
@@ -19,7 +20,7 @@ const sketch = (s) => {
     osc2 = new Tone.Oscillator();
     osc2.frequency.value = 220;
     osc2.volume.value = -9;
-    osc2.toDestination();
+    // osc2.toDestination();
 
     // use lfo to modulate the frequency of the first oscillator
     lfo = new Tone.LFO("0.1hz", 210, 230);
@@ -27,7 +28,7 @@ const sketch = (s) => {
 
     wave = new Tone.Waveform();
     osc.connect(wave);
-    osc2.connect(wave);
+    // osc2.connect(wave);
   };
 
   s.windowResized = () => {
