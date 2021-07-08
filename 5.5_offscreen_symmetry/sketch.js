@@ -101,6 +101,8 @@ const sketch = (s) => {
     }
     // render off canvas
     s.imageMode(s.CENTER);
+    s.scale(0.5);
+    s.translate(s.width / 2, s.height / 2);
     s.image(off, 0, s.height / 2);
     s.translate(s.width, 0);
     s.scale(-1, 1);
