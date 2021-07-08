@@ -23,9 +23,21 @@ Tone.Master
 
 use .toDestination() instead of Tone.Master
 
+frequency defaults to 440, A4
+
 ```js
-// defaults to 440, A4
-new Tone.Oscillator().toDestination();
+osc = new Tone.Oscillator();
+osc.toDestination();
+osc.type = "triangle";
+osc.volume.value = -9;
+```
+
+```js
+osc = new Tone.Oscillator({
+  type: "triangle",
+  volume: -9,
+});
+osc.toDestination();
 ```
 
 ==
