@@ -5,13 +5,13 @@ const sketch = (s) => {
   let ready = false;
   let osc;
   let osc2;
+  let lfo; // low frequency oscillator
   let wave;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     // osc frequency changes with mouse position
     osc = new Tone.Oscillator(); // default is 440 Hz, A4
-    osc.frequency.value = 220; // 220, A3
     osc.volume.value = -9;
     osc.toDestination();
 
@@ -20,6 +20,10 @@ const sketch = (s) => {
     osc2.frequency.value = 220;
     osc2.volume.value = -9;
     osc2.toDestination();
+
+    // use lfo to modulate the frequency of the first oscillator
+    lfo = new Tone.LFO("0.1hz", 210, 230);
+    lfo.connect(osc.frequency);
 
     wave = new Tone.Waveform();
     osc.connect(wave);
@@ -33,9 +37,6 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
     if (ready) {
-      // change frequency based on mouse position
-      osc.frequency.value = s.map(s.mouseX, 0, s.width, 110, 880);
-
       s.stroke(255);
       let buffer = wave.getValue(0);
 
@@ -75,6 +76,7 @@ const sketch = (s) => {
       ready = true;
       osc.start();
       osc2.start();
+      lfo.start();
     }
   };
 };
