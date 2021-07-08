@@ -56,8 +56,8 @@ const sketch = (s) => {
     s.rectMode(s.CENTER);
     s.stroke(agent.color);
 
-    let n = s.noise((agent.id + s.frameCount) * 0.01);
-    let thickness = s.map(n, 0, 1, 1, 15);
+    let n = s.sin((agent.id + s.frameCount) * 0.01);
+    let thickness = s.map(n, -1, 1, 1, 15);
     s.strokeWeight(thickness);
 
     s.push();
