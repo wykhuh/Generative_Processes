@@ -1,13 +1,34 @@
 import p5 from "p5";
+import * as dat from "dat.gui";
 
 const sketch = (s) => {
   let group = [];
-  let damping = 1;
   let palette = ["#8ecae6", "#219ebc", "#023047", "#ffb703", "#fb8500"];
+  let settings = {
+    redraw_bg: false,
+    damping: 1,
+    seek: 0,
+    twitch: 0.3,
+    separate: 1.5,
+    cohesion: 1,
+    align: 1,
+  };
+
+  let gui;
 
   //----------------------------------------------
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    gui = new dat.GUI();
+    gui.add(settings, "redraw_bg");
+    gui.add(settings, "damping", 0.8, 1);
+    gui.add(settings, "seek", 0, 2, 0.1);
+    gui.add(settings, "twitch", 0, 2);
+    gui.add(settings, "separate", 0, 2);
+    gui.add(settings, "cohesion", 0, 2);
+    gui.add(settings, "align", 0, 2);
+
+    gui.close();
   };
 
   s.windowResized = () => {
@@ -15,7 +36,9 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    s.background(255);
+    if (settings.redraw_bg) {
+      s.background(255);
+    }
 
     if (group.length < 125) {
       group.push(createAgent());
@@ -26,12 +49,12 @@ const sketch = (s) => {
 
     for (let agent of group) {
       // behaviors
-      // seek(agent, mouse, 0.5);
+      seek(agent, mouse, 0.5, settings.seek);
 
-      twitch(agent, 0.3);
-      separate(agent, group, 1.5);
-      align(agent, group);
-      cohesion(agent, group);
+      twitch(agent, settings.twitch);
+      separate(agent, group, settings.separate);
+      align(agent, group, settings.align);
+      cohesion(agent, group, settings.cohesion);
 
       move(agent);
       wrap(agent);
@@ -72,7 +95,7 @@ const sketch = (s) => {
 
   function move(agent) {
     agent.vel.add(agent.acc);
-    agent.vel.mult(damping);
+    agent.vel.mult(settings.damping);
     agent.pos.add(agent.vel);
 
     // reset acceleration in between each frame
