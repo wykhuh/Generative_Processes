@@ -30,10 +30,6 @@ module.exports = {
           __dirname,
           "5.2_group_behavior/index.html"
         ),
-        "5.3_painting_with_agents": resolve(
-          __dirname,
-          "5.3_painting_with_agents/index.html"
-        ),
         // insert text -->
       },
     },
