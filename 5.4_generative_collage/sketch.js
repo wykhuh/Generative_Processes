@@ -1,7 +1,17 @@
 import p5 from "p5";
 import * as dat from "dat.gui";
+import asset1 from "./assets/Asset 1-8.png";
+import asset2 from "./assets/Asset 3-8.png";
+import asset3 from "./assets/Asset 4-8.png";
+import asset4 from "./assets/Asset 5-8.png";
+import asset5 from "./assets/Asset 6-8.png";
+import asset6 from "./assets/Asset 7-8.png";
+import asset7 from "./assets/Asset 8-8.png";
+import asset8 from "./assets/Asset 9-8.png";
 
 const sketch = (s) => {
+  let assets = [asset1, asset2, asset3, asset4, asset5, asset6, asset7, asset8];
+  let sprites = [];
   let group = [];
   let palette = ["#8ecae6", "#219ebc", "#023047", "#ffb703", "#fb8500"];
   let settings = {
@@ -18,6 +28,13 @@ const sketch = (s) => {
   let paused = false;
 
   //----------------------------------------------
+  s.preload = () => {
+    for (let asset of assets) {
+      let img = s.loadImage(asset);
+      sprites.push(img);
+    }
+  };
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     gui = new dat.GUI();
@@ -58,7 +75,7 @@ const sketch = (s) => {
       s.background(255);
     }
 
-    if (group.length < 125) {
+    if (group.length < 50) {
       group.push(createAgent());
     }
 
@@ -90,12 +107,15 @@ const sketch = (s) => {
       maxForce: s.random(0.05, 0.2),
       color: s.random(palette),
       id: s.frameCount,
+      sprite: s.random(sprites),
     };
     return agent;
   }
 
   function render(agent) {
     s.rectMode(s.CENTER);
+    s.imageMode(s.CENTER);
+
     s.stroke(agent.color);
 
     let n = s.sin((agent.id + s.frameCount) * 0.01);
@@ -107,7 +127,8 @@ const sketch = (s) => {
     s.translate(agent.pos.x, agent.pos.y);
     // rotate the origin to same angle as the agent velocity
     s.rotate(agent.vel.heading());
-    s.line(-20, 0, 20, 0);
+
+    s.image(agent.sprite, 0, 0);
     s.pop();
   }
 
