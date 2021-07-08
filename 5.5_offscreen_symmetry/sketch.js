@@ -27,6 +27,8 @@ const sketch = (s) => {
   let gui;
   let paused = false;
 
+  let off;
+
   //----------------------------------------------
   s.preload = () => {
     for (let asset of assets) {
@@ -48,6 +50,8 @@ const sketch = (s) => {
 
     gui.close();
     s.background(255);
+
+    off = s.createGraphics(s.width, s.height);
   };
 
   s.windowResized = () => {
@@ -72,7 +76,7 @@ const sketch = (s) => {
 
   s.draw = () => {
     if (settings.redraw_bg) {
-      s.background(255);
+      off.background(255);
     }
 
     if (group.length < 50) {
@@ -95,6 +99,8 @@ const sketch = (s) => {
       wrap(agent);
       render(agent);
     }
+    // render off canvas
+    s.image(off, 0, 0);
   };
 
   //----------------------------------------------
@@ -113,25 +119,23 @@ const sketch = (s) => {
   }
 
   function render(agent) {
-    s.rectMode(s.CENTER);
-    s.imageMode(s.CENTER);
-
-    s.stroke(agent.color);
+    // render everything to off canvas
+    off.imageMode(s.CENTER);
 
     let n = s.sin((agent.id + s.frameCount) * 0.01);
     let thickness = s.map(n, -1, 1, 0.5, 1);
 
-    s.push();
+    off.push();
     // set origin to position of the agent
-    s.translate(agent.pos.x, agent.pos.y);
-    // rotate the origin to same angle as the agent velocity
+    off.translate(agent.pos.x, agent.pos.y);
+    // rotate the origin t o same angle as the agent velocity
     // add s.PI/2 so images are in the same orientation as the velocity
-    s.rotate(agent.vel.heading() + s.PI / 2);
-    s.scale(thickness);
+    off.rotate(agent.vel.heading() + s.PI / 2);
+    off.scale(thickness);
 
-    s.tint(agent.color);
-    s.image(agent.sprite, 0, 0);
-    s.pop();
+    off.tint(agent.color);
+    off.image(agent.sprite, 0, 0);
+    off.pop();
   }
 
   function move(agent) {
