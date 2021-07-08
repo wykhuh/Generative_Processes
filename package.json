@@ -2,5 +2,13 @@
   "dependencies": {
     "dat.gui": "^0.7.7",
     "p5": "^1.4.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.4.1"
   }
 }
