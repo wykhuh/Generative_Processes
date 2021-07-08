@@ -20,6 +20,8 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
     if (ready) {
+      // change frequency based on mouse position
+      osc.frequency.value = s.map(s.mouseX, 0, s.width, 110, 880);
     } else {
       s.fill(255);
       s.noStroke();
