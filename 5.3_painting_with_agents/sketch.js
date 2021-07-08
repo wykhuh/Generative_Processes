@@ -30,6 +30,7 @@ const sketch = (s) => {
     gui.add(settings, "align", 0, 2);
 
     gui.close();
+    s.background(255);
   };
 
   s.windowResized = () => {
@@ -45,6 +46,10 @@ const sketch = (s) => {
         s.loop();
         paused = false;
       }
+    }
+
+    if (s.key == "s") {
+      s.save("drawing.jpg");
     }
   };
 
