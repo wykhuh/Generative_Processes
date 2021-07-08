@@ -31,6 +31,7 @@ module.exports = {
           "5.2_group_behavior/index.html"
         ),
         "5.3_painting_with_agents": resolve(__dirname, "5.3_painting_with_agents/index.html"),
+        "5.4_generative_collage": resolve(__dirname, "5.4_generative_collage/index.html"),
         // insert text -->
       },
     },
