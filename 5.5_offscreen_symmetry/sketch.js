@@ -100,7 +100,11 @@ const sketch = (s) => {
       render(agent);
     }
     // render off canvas
-    s.image(off, 0, 0);
+    s.imageMode(s.CENTER);
+    s.image(off, 0, s.height / 2);
+    s.translate(s.width, 0);
+    s.scale(-1, 1);
+    s.image(off, 0, s.height / 2);
   };
 
   //----------------------------------------------
