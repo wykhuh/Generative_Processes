@@ -119,14 +119,15 @@ const sketch = (s) => {
     s.stroke(agent.color);
 
     let n = s.sin((agent.id + s.frameCount) * 0.01);
-    let thickness = s.map(n, -1, 1, 1, 15);
-    s.strokeWeight(thickness);
+    let thickness = s.map(n, -1, 1, 0.5, 1);
 
     s.push();
     // set origin to position of the agent
     s.translate(agent.pos.x, agent.pos.y);
     // rotate the origin to same angle as the agent velocity
-    s.rotate(agent.vel.heading());
+    // add s.PI/2 so images are in the same orientation as the velocity
+    s.rotate(agent.vel.heading() + s.PI / 2);
+    s.scale(thickness);
 
     s.tint(agent.color);
     s.image(agent.sprite, 0, 0);
