@@ -28,14 +28,29 @@ const sketch = (s) => {
       // change frequency based on mouse position
       osc.frequency.value = s.map(s.mouseX, 0, s.width, 110, 880);
 
-      // draw waveform
       s.stroke(255);
       let buffer = wave.getValue(0);
+
+      // look for point in buffer where we cross the x axis.
+      let start = 0;
       for (let i = 1; i < buffer.length; i++) {
-        let x1 = s.map(i - 1, 0, buffer.length, 0, s.width);
+        // previous point is negative, and current point is zero or positive
+        if (buffer[i - 1] < 0 && buffer[i] >= 0) {
+          start = i;
+          break; // end for loop
+        }
+      }
+
+      // calculate new endpoint so we always draw same number of samples
+      // for each frame
+      let end = start + buffer.length / 2;
+
+      // draw waveform
+      for (let i = start; i < end; i++) {
+        let x1 = s.map(i - 1, start, end, 0, s.width);
         let y1 = s.map(buffer[i - 1], -1, 1, 0, s.height);
 
-        let x2 = s.map(i, 0, buffer.length, 0, s.width);
+        let x2 = s.map(i, start, end, 0, s.width);
         let y2 = s.map(buffer[i], -1, 1, 0, s.height);
         s.line(x1, y1, x2, y2);
       }
