@@ -49,9 +49,10 @@ const sketch = (s) => {
     gui.add(settings, "align", 0, 2);
 
     gui.close();
-    s.background(255);
+    s.background(0);
 
     off = s.createGraphics(s.width, s.height);
+    off.background(255);
   };
 
   s.windowResized = () => {
