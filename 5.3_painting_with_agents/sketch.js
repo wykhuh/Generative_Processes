@@ -47,6 +47,7 @@ const sketch = (s) => {
       maxSpeed: s.random(2, 6),
       maxForce: s.random(0.05, 0.2),
       color: s.random(palette),
+      id: s.frameCount,
     };
     return agent;
   }
@@ -54,6 +55,11 @@ const sketch = (s) => {
   function render(agent) {
     s.rectMode(s.CENTER);
     s.stroke(agent.color);
+
+    let n = s.noise((agent.id + s.frameCount) * 0.01);
+    let thickness = s.map(n, 0, 1, 1, 15);
+    s.strokeWeight(thickness);
+
     s.push();
     // set origin to position of the agent
     s.translate(agent.pos.x, agent.pos.y);
