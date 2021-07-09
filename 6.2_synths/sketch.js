@@ -7,6 +7,7 @@ const sketch = (s) => {
   let wave;
   let synth;
   let loop;
+  let scale = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"];
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -50,7 +51,7 @@ const sketch = (s) => {
   };
 
   function loopStep(time) {
-    let note = s.random(110, 880);
+    let note = s.random(scale);
 
     // triggerAttackRelease(frequency, note duration, time)
     synth.triggerAttackRelease(note, "8n", time);
