@@ -1,5 +1,6 @@
 import p5 from "p5";
 import * as Tone from "tone";
+import { Scale } from "@tonaljs/tonal";
 
 const sketch = (s) => {
   let masterVolume = -10;
@@ -7,10 +8,12 @@ const sketch = (s) => {
   let wave;
   let synth;
   let loop;
-  let scale = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"];
+  let scale;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+
+    scale = Scale.get("C4 major").notes;
 
     synth = new Tone.Synth();
     synth.toDestination();
