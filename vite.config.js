@@ -35,6 +35,7 @@ module.exports = {
         "5.5_offscreen_symmetry": resolve(__dirname, "5.5_offscreen_symmetry/index.html"),
         "6.1_tonejs": resolve(__dirname, "6.1_tonejs/index.html"),
         "6.2_synths": resolve(__dirname, "6.2_synths/index.html"),
+        "6.3_pendulums": resolve(__dirname, "6.3_pendulums/index.html"),
         // insert text -->
       },
     },
