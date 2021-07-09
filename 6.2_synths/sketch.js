@@ -21,7 +21,7 @@ const sketch = (s) => {
 
     // (callback, loop frequency)
     // fire loopStep every quarter note
-    loop = new Tone.Loop(loopStep, "4n");
+    loop = new Tone.Loop(loopStep, "8n");
     loop.start();
 
     wave = new Tone.Waveform();
@@ -54,7 +54,12 @@ const sketch = (s) => {
   };
 
   function loopStep(time) {
-    let note = s.random(scale);
+    let n = s.noise(s.frameCount * 0.1);
+    // noise will always be between 0 and 1.
+    // use floor to round down the map() value
+    let i = s.floor(s.map(n, 0, 1, 0, scale.length));
+    // pick note from scale based on noise
+    let note = scale[i];
 
     // triggerAttackRelease(frequency, note duration, time)
     synth.triggerAttackRelease(note, "8n", time);
