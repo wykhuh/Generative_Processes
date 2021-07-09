@@ -45,9 +45,11 @@ const sketch = (s) => {
       this.frequency = frequency;
       this.note = note;
 
-      // use lfo to generate oscillat ion for the pendulum
+      // use lfo to generate oscillation for the pendulum
       this.lfo = new Tone.LFO(0.85);
-      this.lfo.start();
+      // to make all pendulum start at 1 second of the transport so
+      // that all pendulums start at the same time
+      this.lfo.start(1);
       // use Meter to measer the amplitude of the frequency
       this.meter = new Tone.Meter();
       this.meter.normalRange = true; // return value from 0 to 1
