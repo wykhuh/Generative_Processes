@@ -4,11 +4,14 @@ import * as Tone from "tone";
 const sketch = (s) => {
   let masterVolume = -10;
   let ready = false;
-  let pendulum;
+  let pendulums = [];
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-    pendulum = new Pendulum(0.85, "C4");
+
+    for (let i = 0; i < 7; i++) {
+      pendulums[i] = new Pendulum(0.85, "C4");
+    }
   };
 
   s.windowResized = () => {
@@ -19,7 +22,10 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
-      pendulum.run();
+      for (let pendulum of pendulums) {
+        pendulum.run();
+        s.translate(0, s.height / pendulums.length);
+      }
     } else {
       s.fill(255);
       s.noStroke();
