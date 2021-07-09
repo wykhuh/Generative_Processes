@@ -38,7 +38,8 @@ const sketch = (s) => {
     if (!ready) {
       ready = true;
     }
-    synth.triggerAttackRelease(220);
+    // triggerAttackRelease(frequency, note duration, time)
+    synth.triggerAttackRelease(220, "8n");
   };
 
   function drawWaveform(wave, w = s.width, h = s.height) {
