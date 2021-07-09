@@ -1,6 +1,6 @@
 import p5 from "p5";
 import * as Tone from "tone";
-import { Scale } from "@tonaljs/tonal";
+import { Scale, Collection } from "@tonaljs/tonal";
 
 const sketch = (s) => {
   let masterVolume = -10;
@@ -16,6 +16,8 @@ const sketch = (s) => {
     scale = Scale.get("C3 " + flavor).notes;
     scale = scale.concat(Scale.get("C4 " + flavor).notes);
     scale = scale.concat(Scale.get("C5 " + flavor).notes);
+
+    Collection.shuffle(scale);
 
     for (let i = 0; i < scale.length; i++) {
       // give each pendulum a different frequency
