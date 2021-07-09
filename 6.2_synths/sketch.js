@@ -50,8 +50,10 @@ const sketch = (s) => {
   };
 
   function loopStep(time) {
+    let note = s.random(110, 880);
+
     // triggerAttackRelease(frequency, note duration, time)
-    synth.triggerAttackRelease(220, "8n", time);
+    synth.triggerAttackRelease(note, "8n", time);
   }
 
   function drawWaveform(wave, w = s.width, h = s.height) {
