@@ -11,7 +11,9 @@ const sketch = (s) => {
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
-    scale = Scale.get("C4 major").notes;
+    scale = Scale.get("C3 major").notes;
+    scale = scale.concat(Scale.get("C4 major").notes);
+    scale = scale.concat(Scale.get("C5 major").notes);
 
     for (let i = 0; i < scale.length; i++) {
       // give each pendulum a different frequency
@@ -47,7 +49,7 @@ const sketch = (s) => {
 
   class Pendulum {
     constructor(frequency, note) {
-      this.frequency = frequency;
+      this.frequency = frequency * 0.5;
       this.note = note;
 
       // use lfo to generate oscillation for the pendulum
