@@ -9,6 +9,7 @@ const sketch = (s) => {
   let synth;
   let loop;
   let scale;
+  let previousNote;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -61,8 +62,12 @@ const sketch = (s) => {
     // pick note from scale based on noise
     let note = scale[i];
 
-    // triggerAttackRelease(frequency, note duration, time)
-    synth.triggerAttackRelease(note, "8n", time);
+    if (previousNote != note) {
+      // triggerAttackRelease(frequency, note duration, time)
+      synth.triggerAttackRelease(note, "8n", time);
+    }
+
+    previousNote = note;
   }
 
   function drawWaveform(wave, w = s.width, h = s.height) {
