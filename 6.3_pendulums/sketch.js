@@ -1,16 +1,21 @@
 import p5 from "p5";
 import * as Tone from "tone";
+import { Scale } from "@tonaljs/tonal";
 
 const sketch = (s) => {
   let masterVolume = -10;
   let ready = false;
   let pendulums = [];
+  let scale;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
-    for (let i = 0; i < 7; i++) {
-      pendulums[i] = new Pendulum(0.85, "C4");
+    scale = Scale.get("C4 major").notes;
+
+    for (let i = 0; i < scale.length; i++) {
+      // give each pendulum a different frequency
+      pendulums[i] = new Pendulum(0.85 + (i * 1) / 60, scale[i]);
     }
   };
 
@@ -46,7 +51,7 @@ const sketch = (s) => {
       this.note = note;
 
       // use lfo to generate oscillation for the pendulum
-      this.lfo = new Tone.LFO(0.85);
+      this.lfo = new Tone.LFO(this.frequency);
       // to make all pendulum start at 1 second of the transport so
       // that all pendulums start at the same time
       this.lfo.start(1);
@@ -69,7 +74,7 @@ const sketch = (s) => {
       let left = position > 0 && this.previousPosition < 0;
       let right = position < 0 && this.previousPosition > 0;
       if (left || right) {
-        this.synth.triggerAttackRelease("C4", "8n");
+        this.synth.triggerAttackRelease(this.note, "8n");
       }
 
       this.previousPosition = position;
