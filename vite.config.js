@@ -36,6 +36,7 @@ module.exports = {
         "6.1_tonejs": resolve(__dirname, "6.1_tonejs/index.html"),
         "6.2_synths": resolve(__dirname, "6.2_synths/index.html"),
         "6.3_pendulums": resolve(__dirname, "6.3_pendulums/index.html"),
+        "7.1_note_mapping": resolve(__dirname, "7.1_note_mapping/index.html"),
         // insert text -->
       },
     },
