@@ -2,13 +2,19 @@ import p5 from "p5";
 import * as Tone from "tone";
 
 const sketch = (s) => {
+  let masterVolume = -9;
   let ready = false;
   let wave;
+  let synth;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
+    synth = new Tone.Synth();
+    synth.toDestination();
+
     wave = new Tone.Waveform();
+    synth.connect(wave);
   };
 
   s.windowResized = () => {
@@ -32,6 +38,7 @@ const sketch = (s) => {
     if (!ready) {
       ready = true;
     }
+    synth.triggerAttackRelease(220);
   };
 
   function drawWaveform(wave, w = s.width, h = s.height) {
