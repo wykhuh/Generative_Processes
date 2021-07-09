@@ -11,31 +11,6 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-
-    let flavor = "major pentatonic";
-
-    // use Gain to hold all synth objects so that we can apply effects to all
-    // the synths
-    mixer = new Tone.Gain();
-
-    // connect all synth objects in mixer to reverb
-    let reverb = new Tone.Reverb({
-      wet: 0.5, // default is 1
-      decay: 30, // unit is seconds
-    });
-    mixer.connect(reverb);
-    reverb.toDestination();
-
-    scale = Scale.get("C3 " + flavor).notes;
-    scale = scale.concat(Scale.get("C4 " + flavor).notes);
-    scale = scale.concat(Scale.get("C5 " + flavor).notes);
-
-    Collection.shuffle(scale);
-
-    for (let i = 0; i < scale.length; i++) {
-      // give each pendulum a different frequency
-      pendulums[i] = new Pendulum(0.85 + (i * 1) / 60, scale[i]);
-    }
   };
 
   s.windowResized = () => {
@@ -61,9 +36,36 @@ const sketch = (s) => {
   s.mousePressed = () => {
     if (!ready) {
       ready = true;
+      intializeAudio();
     }
   };
 
+  function intializeAudio() {
+    let flavor = "major pentatonic";
+
+    // use Gain to hold all synth objects so that we can apply effects to all
+    // the synths
+    mixer = new Tone.Gain();
+
+    // connect all objects in mixer to reverb
+    let reverb = new Tone.Reverb({
+      wet: 0.5, // default is 1
+      decay: 30, // unit is seconds
+    });
+    mixer.connect(reverb);
+    reverb.toDestination();
+
+    scale = Scale.get("C3 " + flavor).notes;
+    scale = scale.concat(Scale.get("C4 " + flavor).notes);
+    scale = scale.concat(Scale.get("C5 " + flavor).notes);
+
+    Collection.shuffle(scale);
+
+    for (let i = 0; i < scale.length; i++) {
+      // give each pendulum a different frequency
+      pendulums[i] = new Pendulum(0.85 + (i * 1) / 60, scale[i]);
+    }
+  }
   class Pendulum {
     constructor(frequency, note) {
       this.frequency = frequency * 0.5;
