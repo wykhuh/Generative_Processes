@@ -4,25 +4,11 @@ import * as Tone from "tone";
 const sketch = (s) => {
   let masterVolume = -10;
   let ready = false;
-
-  let lfo;
-  let meter;
-  let previousPosition;
-  let synth;
+  let pendulum;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-
-    // use lfo to generate oscillation for the pendulum
-    lfo = new Tone.LFO(0.85);
-    lfo.start();
-    // use Meter to measer the amplitude of the frequency
-    meter = new Tone.Meter();
-    meter.normalRange = true; // return value from 0 to 1
-    lfo.connect(meter);
-
-    synth = new Tone.Synth();
-    synth.toDestination();
+    pendulum = new Pendulum(0.85, "C4");
   };
 
   s.windowResized = () => {
@@ -33,22 +19,7 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
-      let position = 0.5 - meter.getValue(0); // return value -0.5  to 0.5
-      let x = s.map(position, -0.5, 0.5, 100, s.width - 100);
-
-      // trigger a note when pendulum crosses the midline
-      let left = position > 0 && previousPosition < 0;
-      let right = position < 0 && previousPosition > 0;
-      if (left || right) {
-        synth.triggerAttackRelease("C4", "8n");
-      }
-
-      previousPosition = position;
-
-      s.fill(255);
-      s.stroke(255);
-      s.line(x, s.height / 2, s.width / 2, 0);
-      s.ellipse(x, s.height / 2, 25, 25);
+      pendulum.run();
     } else {
       s.fill(255);
       s.noStroke();
@@ -62,6 +33,45 @@ const sketch = (s) => {
       ready = true;
     }
   };
+
+  class Pendulum {
+    constructor(frequency, note) {
+      this.frequency = frequency;
+      this.note = note;
+
+      // use lfo to generate oscillat ion for the pendulum
+      this.lfo = new Tone.LFO(0.85);
+      this.lfo.start();
+      // use Meter to measer the amplitude of the frequency
+      this.meter = new Tone.Meter();
+      this.meter.normalRange = true; // return value from 0 to 1
+      this.lfo.connect(this.meter);
+
+      this.synth = new Tone.Synth();
+      this.synth.toDestination();
+
+      this.previousPosition = 0;
+    }
+
+    run() {
+      let position = 0.5 - this.meter.getValue(0); // return value -0.5  to 0.5
+      let x = s.map(position, -0.5, 0.5, 100, s.width - 100);
+
+      // trigger a note when pendulum crosses the midline
+      let left = position > 0 && this.previousPosition < 0;
+      let right = position < 0 && this.previousPosition > 0;
+      if (left || right) {
+        this.synth.triggerAttackRelease("C4", "8n");
+      }
+
+      this.previousPosition = position;
+
+      s.fill(255);
+      s.stroke(255);
+      s.line(x, 50, s.width / 2, 0);
+      s.ellipse(x, 50, 25, 25);
+    }
+  }
 };
 
 new p5(sketch);
