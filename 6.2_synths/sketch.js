@@ -13,20 +13,7 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-
     scale = Scale.get("C4 major").notes;
-
-    synth = new Tone.Synth();
-    synth.toDestination();
-    synth.volume.value = masterVolume;
-
-    // (callback, loop frequency)
-    // fire loopStep every quarter note
-    loop = new Tone.Loop(loopStep, "8n");
-    loop.start();
-
-    wave = new Tone.Waveform();
-    synth.connect(wave);
   };
 
   s.windowResized = () => {
@@ -49,10 +36,24 @@ const sketch = (s) => {
   s.mousePressed = () => {
     if (!ready) {
       ready = true;
-
-      Tone.Transport.start();
+      intializeAudio();
     }
   };
+
+  function intializeAudio() {
+    synth = new Tone.Synth();
+    synth.toDestination();
+    synth.volume.value = masterVolume;
+
+    // (callback, loop frequency)
+    // fire loopStep every quarter note
+    loop = new Tone.Loop(loopStep, "8n");
+    loop.start();
+
+    wave = new Tone.Waveform();
+    synth.connect(wave);
+    Tone.Transport.start();
+  }
 
   function loopStep(time) {
     let n = s.noise(s.frameCount * 0.1);

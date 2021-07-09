@@ -43,3 +43,36 @@ osc.toDestination();
 ==
 
 oscillators have 4 types: sine (default), square, triangle, sawtooth
+
+==
+
+Synth lets you trigger a sound using an envelope
+
+- attack - how fast sound fades in
+- release - how fast sound fades out
+
+==
+
+default tempo is 120 beats per minute
+
+you can set duration as a beat
+"1n" - whole note
+"4n" - quarter note
+"8n" - eight note
+
+triggerAttackRelease(frequency, note duration, time)
+synth.triggerAttackRelease(220, "1n", "+1");
+
+==
+
+Master
+
+- audio volume
+
+Transport
+
+- time object
+
+```js
+Tone.Transport.start();
+```
