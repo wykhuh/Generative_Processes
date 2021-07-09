@@ -11,9 +11,11 @@ const sketch = (s) => {
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
-    scale = Scale.get("C3 major").notes;
-    scale = scale.concat(Scale.get("C4 major").notes);
-    scale = scale.concat(Scale.get("C5 major").notes);
+    let flavor = "major pentatonic";
+
+    scale = Scale.get("C3 " + flavor).notes;
+    scale = scale.concat(Scale.get("C4 " + flavor).notes);
+    scale = scale.concat(Scale.get("C5 " + flavor).notes);
 
     for (let i = 0; i < scale.length; i++) {
       // give each pendulum a different frequency
