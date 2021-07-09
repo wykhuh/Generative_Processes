@@ -7,11 +7,24 @@ const sketch = (s) => {
   let ready = false;
   let pendulums = [];
   let scale;
+  let mixer;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
     let flavor = "major pentatonic";
+
+    // use Gain to hold all synth objects so that we can apply effects to all
+    // the synths
+    mixer = new Tone.Gain();
+
+    // connect all synth objects in mixer to reverb
+    let reverb = new Tone.Reverb({
+      wet: 0.5, // default is 1
+      decay: 30, // unit is seconds
+    });
+    mixer.connect(reverb);
+    reverb.toDestination();
 
     scale = Scale.get("C3 " + flavor).notes;
     scale = scale.concat(Scale.get("C4 " + flavor).notes);
@@ -67,7 +80,8 @@ const sketch = (s) => {
       this.lfo.connect(this.meter);
 
       this.synth = new Tone.Synth();
-      this.synth.toDestination();
+      // all synths are connected to the same mixer object
+      this.synth.connect(mixer);
 
       this.previousPosition = 0;
     }

@@ -76,3 +76,7 @@ Transport
 ```js
 Tone.Transport.start();
 ```
+
+==
+
+low frequency oscillator uses sine wave to oscillate
