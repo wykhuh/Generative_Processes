@@ -2,16 +2,23 @@ import p5 from "p5";
 import * as Tone from "tone";
 
 const sketch = (s) => {
-  let masterVolume = -9;
+  let masterVolume = -10;
   let ready = false;
   let wave;
   let synth;
+  let loop;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
     synth = new Tone.Synth();
     synth.toDestination();
+    synth.volume.value = masterVolume;
+
+    // (callback, loop frequency)
+    // fire loopStep every quarter note
+    loop = new Tone.Loop(loopStep, "4n");
+    loop.start();
 
     wave = new Tone.Waveform();
     synth.connect(wave);
@@ -37,10 +44,15 @@ const sketch = (s) => {
   s.mousePressed = () => {
     if (!ready) {
       ready = true;
+
+      Tone.Transport.start();
     }
-    // triggerAttackRelease(frequency, note duration, time)
-    synth.triggerAttackRelease(220, "8n");
   };
+
+  function loopStep(time) {
+    // triggerAttackRelease(frequency, note duration, time)
+    synth.triggerAttackRelease(220, "8n", time);
+  }
 
   function drawWaveform(wave, w = s.width, h = s.height) {
     s.stroke(255);
