@@ -38,6 +38,7 @@ module.exports = {
         "6.3_pendulums": resolve(__dirname, "6.3_pendulums/index.html"),
         "7.1_note_mapping": resolve(__dirname, "7.1_note_mapping/index.html"),
         "7.2_sequences": resolve(__dirname, "7.2_sequences/index.html"),
+        "7.3_fuge": resolve(__dirname, "7.3_fuge/index.html"),
         // insert text -->
       },
     },
