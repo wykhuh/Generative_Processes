@@ -23,9 +23,8 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    s.background(0);
-
     if (ready) {
+      s.background(0, 25);
       let myTextSize = s.height / 20;
       s.fill(255);
       s.noStroke();
@@ -71,6 +70,7 @@ const sketch = (s) => {
 
       s.text(track.currentNote, 0, 0);
     } else {
+      s.background(0);
       s.fill(255);
       s.noStroke();
       s.textAlign(s.CENTER);
