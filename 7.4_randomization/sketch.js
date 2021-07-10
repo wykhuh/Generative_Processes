@@ -1,6 +1,6 @@
 import p5 from "p5";
 import * as Tone from "tone";
-import { Scale, Note } from "@tonaljs/tonal";
+import { Scale, Note, Collection } from "@tonaljs/tonal";
 import * as dat from "dat.gui";
 
 const sketch = (s) => {
@@ -17,13 +17,17 @@ const sketch = (s) => {
   let gui;
   let settings = {
     mixup: mixup,
+    rotateLeft: rotateLeft,
+    rotateRight: rotateRight,
   };
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
 
     gui = new dat.GUI();
-    gui.add(settings, "mixup");
+    gui.add(settings, "mixup").name("Shuffle");
+    gui.add(settings, "rotateLeft").name("Rotate left");
+    gui.add(settings, "rotateRight").name("Rotate right");
 
     scale = Scale.get("C4 major").notes;
   };
@@ -192,6 +196,14 @@ const sketch = (s) => {
 
   function mixup() {
     s.shuffle(sequence, true);
+  }
+
+  function rotateLeft() {
+    sequence = Collection.rotate(1, sequence);
+  }
+
+  function rotateRight() {
+    sequence = Collection.rotate(-1, sequence);
   }
 };
 
