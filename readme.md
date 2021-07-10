@@ -21,17 +21,6 @@ npm run dev <directory>
 
 This will start the vite dev server that automatically refreshes the files and browser when the files change.
 
-## generate new directory
-
-```{bash}
-./generate_files.sh <new directory>
-```
-
-The script will:
-
-1. create a new directory by copying `template` directory
-2. add the new directory to index.html and vite.config.js
-
 ## copy directory
 
 ```{bash}
