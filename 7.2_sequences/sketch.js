@@ -7,6 +7,10 @@ const sketch = (s) => {
   let ready = false;
   let scale;
   let synth;
+  let prevNote;
+
+  let pattern;
+  let sequence = [0, 2, 4, 6]; // array of indicies for scale
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -18,7 +22,7 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    s.background(0);
+    // s.background(0);
 
     if (ready) {
     } else {
@@ -50,6 +54,23 @@ const sketch = (s) => {
     synth = new Tone.Synth();
     synth.toDestination();
     synth.volume.value = masterVolume;
+
+    // Pattern cycles through the passed in sequence
+    pattern = new Tone.Pattern(
+      (time, index) => {
+        s.background(0);
+        s.fill(255);
+        s.noStroke();
+        s.textSize(100);
+        s.text(index, s.width / 2, s.height / 2);
+      },
+      sequence,
+      "up"
+    );
+    pattern.start();
+
+    // start the global play button
+    Tone.Transport.start();
   }
 
   function modulo(n, m) {
