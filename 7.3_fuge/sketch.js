@@ -26,17 +26,18 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
+      let myTextSize = s.height / 20;
       s.fill(255);
       s.noStroke();
       s.textAlign(s.CENTER, s.CENTER);
-      s.textSize(40);
+      s.textSize(myTextSize);
 
       s.translate(s.width / 2, s.height / 2);
       for (let i = 0; i < scale.length; i++) {
         let angle = s.map(i, 0, scale.length, -s.PI / 2, s.TWO_PI - s.PI / 2);
 
         // create x,y coordinates centered around circle
-        let radius = 250;
+        let radius = s.height / 3;
         let x = s.cos(angle) * radius;
         let y = s.sin(angle) * radius;
 
@@ -46,7 +47,7 @@ const sketch = (s) => {
           s.stroke(255);
           s.line(x, y, 0, 0);
           s.fill(0);
-          s.circle(x, y, 80);
+          s.circle(x, y, myTextSize * 2);
         }
 
         s.noStroke();
