@@ -6,6 +6,7 @@ const sketch = (s) => {
   let masterVolume = -10;
   let ready = false;
   let scale;
+  let synth;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -28,6 +29,8 @@ const sketch = (s) => {
       s.textAlign(s.CENTER, s.CENTER);
       s.textSize(100);
       s.text(note, s.width / 2, s.height / 2);
+
+      synth.triggerAttackRelease(note, "8n");
     } else {
       s.fill(255);
       s.noStroke();
@@ -43,7 +46,11 @@ const sketch = (s) => {
     }
   };
 
-  function initAudio() {}
+  function initAudio() {
+    synth = new Tone.Synth();
+    synth.toDestination();
+    synth.volume.value = masterVolume;
+  }
 };
 
 new p5(sketch);
