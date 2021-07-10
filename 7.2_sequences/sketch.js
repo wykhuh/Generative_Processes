@@ -45,6 +45,11 @@ const sketch = (s) => {
     }
   };
 
+  s.keyPressed = () => {
+    // change the sequence when key is pressed
+    sequence = sequence.reverse();
+  };
+
   function mapNote(noteNumber, scale) {
     let numberNotes = scale.length;
     let i = modulo(noteNumber, numberNotes);
@@ -55,6 +60,7 @@ const sketch = (s) => {
     let noteName = Note.pitchClass(note);
     return noteName + noteOctave;
   }
+
   function initAudio() {
     synth = new Tone.Synth();
     synth.toDestination();
@@ -63,18 +69,21 @@ const sketch = (s) => {
     // Pattern cycles through the passed in sequence
     pattern = new Tone.Pattern(
       (time, index) => {
-        let note = mapNote(index, scale);
+        let note = mapNote(sequence[index], scale);
         // time is a schedule time in the future. Passing time to synth ensures
         // the note is played on beat.
         synth.triggerAttackRelease(note, "8n", time);
         currentNote = note;
       },
-      sequence,
-      "alternateUp"
+      // to allow us to change the sequence while the program is running, we
+      // pass an array of indicies to Tone.Pattern()
+      // create an array starting at 0, that is same length as sequence.
+      Array.from(sequence.keys()),
+      "up"
     );
     // interval is how fast the pattern is played
     // default interval is quarter notes
-    pattern.interval = "8n";
+    pattern.interval = "4n";
     pattern.start();
 
     // start the global play button
