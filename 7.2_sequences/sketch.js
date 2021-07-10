@@ -7,14 +7,14 @@ const sketch = (s) => {
   let ready = false;
   let scale;
   let synth;
-  let prevNote;
+  let currentNote;
 
   let pattern;
   let sequence = [0, 2, 4, 6]; // array of indicies for scale
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-    scale = Scale.get("C4 minor").notes;
+    scale = Scale.get("C4 major").notes;
   };
 
   s.windowResized = () => {
@@ -25,6 +25,11 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
+      s.fill(255);
+      s.noStroke();
+      s.textAlign(s.CENTER, s.CENTER);
+      s.textSize(100);
+      s.text(currentNote, s.width / 2, s.height / 2);
     } else {
       s.fill(255);
       s.noStroke();
@@ -62,6 +67,7 @@ const sketch = (s) => {
         // time is a schedule time in the future. Passing time to synth ensures
         // the note is played on beat.
         synth.triggerAttackRelease(note, "8n", time);
+        currentNote = note;
       },
       sequence,
       "up"
