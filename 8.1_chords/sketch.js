@@ -39,7 +39,10 @@ const sketch = (s) => {
   };
 
   function initAudio() {
-    poly = new Tone.PolySynth(Tone.Synth);
+    poly = new Tone.PolySynth(Tone.AMSynth, {
+      // attack is when sound the fades in; attack is when the sound fades out;
+      envelope: { attack: 1, release: 2 },
+    });
     poly.toDestination();
   }
 };
