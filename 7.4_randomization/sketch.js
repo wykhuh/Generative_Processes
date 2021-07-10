@@ -25,6 +25,18 @@ const sketch = (s) => {
   s.draw = () => {
     if (ready) {
       s.background(0, 25);
+
+      s.fill(255);
+      s.noStroke();
+      s.textAlign(s.LEFT, s.BOTTOM);
+      s.textSize(25);
+      s.push();
+      for (let item of sequence) {
+        s.text(item, 20, 30);
+        s.translate(25, 0);
+      }
+      s.pop();
+
       let myTextSize = s.height / 20;
       s.fill(255);
       s.noStroke();
