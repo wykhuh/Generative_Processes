@@ -22,14 +22,17 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
-      let noteNumber = s.floor(s.map(s.mouseX, 0, s.width, 0, scale.length));
-      let note = scale[noteNumber];
+      let noteNumber = s.floor(s.map(s.mouseX, 0, s.width, -7, 14));
+
+      let numberNotes = scale.length;
+      let i = modulo(noteNumber, numberNotes);
+      let note = scale[i];
 
       s.fill(255);
       s.noStroke();
       s.textAlign(s.CENTER, s.CENTER);
       s.textSize(100);
-      s.text(note, s.width / 2, s.height / 2);
+      s.text(i, s.width / 2, s.height / 2);
 
       if (note != prevNote) {
         synth.triggerAttackRelease(note, "8n");
@@ -54,6 +57,10 @@ const sketch = (s) => {
     synth = new Tone.Synth();
     synth.toDestination();
     synth.volume.value = masterVolume;
+  }
+
+  function modulo(n, m) {
+    return ((n % m) + m) % m;
   }
 };
 
