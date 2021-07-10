@@ -7,6 +7,7 @@ const sketch = (s) => {
   let ready = false;
   let scale;
   let synth;
+  let prevNote;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -30,7 +31,10 @@ const sketch = (s) => {
       s.textSize(100);
       s.text(note, s.width / 2, s.height / 2);
 
-      synth.triggerAttackRelease(note, "8n");
+      if (note != prevNote) {
+        synth.triggerAttackRelease(note, "8n");
+        prevNote = note;
+      }
     } else {
       s.fill(255);
       s.noStroke();
