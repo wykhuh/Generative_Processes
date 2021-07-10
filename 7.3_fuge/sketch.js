@@ -10,6 +10,8 @@ const sketch = (s) => {
   let sequence = [0, 2, 4, 6]; // array of indicies for scale
 
   let track;
+  let track2;
+  let track3;
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -61,7 +63,21 @@ const sketch = (s) => {
   }
 
   function initAudio() {
-    track = new Track({ transpose: -7, tempo: "2n" });
+    track = new Track();
+
+    track2 = new Track({
+      transpose: 0,
+      noteDuration: "16n",
+      tempo: "4n",
+      patternType: "up",
+    });
+
+    track2 = new Track({
+      transpose: -7,
+      noteDuration: "1n",
+      tempo: "1n",
+      patternType: "up",
+    });
 
     // start the global play button
     Tone.Transport.start();
@@ -79,7 +95,7 @@ const sketch = (s) => {
     constructor({
       transpose = 0,
       noteDuration = "8n",
-      tempo = "4n",
+      tempo = "8n",
       patternType = "up",
     }) {
       this.noteDuration = noteDuration;
