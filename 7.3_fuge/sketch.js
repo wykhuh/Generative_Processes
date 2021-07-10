@@ -26,6 +26,11 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
+      s.fill(255);
+      s.noStroke();
+      s.textAlign(s.CENTER, s.CENTER);
+      s.textSize(50);
+
       s.translate(s.width / 2, s.height / 2);
       for (let i = 0; i < scale.length; i++) {
         let angle = s.map(i, 0, scale.length, 0, s.TWO_PI);
@@ -35,14 +40,12 @@ const sketch = (s) => {
         let x = s.cos(angle) * radius;
         let y = s.sin(angle) * radius;
 
-        s.circle(x, y, 50);
+        let noteName = Note.pitchClass(scale[i]);
+
+        s.text(noteName, x, y);
       }
 
-      s.fill(255);
-      s.noStroke();
-      s.textAlign(s.CENTER, s.CENTER);
-      s.textSize(100);
-      s.text(track.currentNote, s.width / 2, s.height / 2);
+      s.text(track.currentNote, 0, 0);
     } else {
       s.fill(255);
       s.noStroke();
