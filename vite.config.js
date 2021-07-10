@@ -30,15 +30,25 @@ module.exports = {
           __dirname,
           "5.2_group_behavior/index.html"
         ),
-        "5.3_painting_with_agents": resolve(__dirname, "5.3_painting_with_agents/index.html"),
-        "5.4_generative_collage": resolve(__dirname, "5.4_generative_collage/index.html"),
-        "5.5_offscreen_symmetry": resolve(__dirname, "5.5_offscreen_symmetry/index.html"),
+        "5.3_painting_with_agents": resolve(
+          __dirname,
+          "5.3_painting_with_agents/index.html"
+        ),
+        "5.4_generative_collage": resolve(
+          __dirname,
+          "5.4_generative_collage/index.html"
+        ),
+        "5.5_offscreen_symmetry": resolve(
+          __dirname,
+          "5.5_offscreen_symmetry/index.html"
+        ),
         "6.1_tonejs": resolve(__dirname, "6.1_tonejs/index.html"),
         "6.2_synths": resolve(__dirname, "6.2_synths/index.html"),
         "6.3_pendulums": resolve(__dirname, "6.3_pendulums/index.html"),
         "7.1_note_mapping": resolve(__dirname, "7.1_note_mapping/index.html"),
         "7.2_sequences": resolve(__dirname, "7.2_sequences/index.html"),
         "7.3_fuge": resolve(__dirname, "7.3_fuge/index.html"),
+        "7.4_randomization": resolve(__dirname, "7.4_randomization/index.html"),
         // insert text -->
       },
     },
