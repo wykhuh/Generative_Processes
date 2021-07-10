@@ -43,6 +43,20 @@ const sketch = (s) => {
 
         let noteName = Note.pitchClass(scale[i]);
 
+        if (noteName == Note.pitchClass(track3.currentNote)) {
+          s.stroke(0, 128, 255);
+          s.line(x, y, 0, 0);
+          s.fill(0);
+          s.circle(x, y, myTextSize * 3);
+        }
+
+        if (noteName == Note.pitchClass(track2.currentNote)) {
+          s.stroke(128, 255, 0);
+          s.line(x, y, 0, 0);
+          s.fill(0);
+          s.circle(x, y, myTextSize * 2.5);
+        }
+
         if (noteName == Note.pitchClass(track.currentNote)) {
           s.stroke(255);
           s.line(x, y, 0, 0);
@@ -99,7 +113,7 @@ const sketch = (s) => {
     });
 
     // bass
-    track2 = new Track({
+    track3 = new Track({
       transpose: -7,
       noteDuration: "1n",
       tempo: "1n",
