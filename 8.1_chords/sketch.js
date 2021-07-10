@@ -45,8 +45,6 @@ const sketch = (s) => {
       ready = true;
       initAudio();
     }
-
-    poly.triggerAttackRelease(chords[1], "1m");
   };
 
   function initAudio() {
@@ -55,6 +53,13 @@ const sketch = (s) => {
       envelope: { attack: 1, release: 2 },
     });
     poly.toDestination();
+
+    Tone.Transport.schedule(changeChord, "1");
+    Tone.Transport.start();
+  }
+
+  function changeChord(time) {
+    poly.triggerAttackRelease(chords[0], "1m");
   }
 
   function mapNote(noteNumber, scale) {
