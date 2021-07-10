@@ -72,6 +72,9 @@ const sketch = (s) => {
       sequence,
       "up"
     );
+    // interval is how fast the pattern is played
+    // default interval is quarter notes
+    pattern.interval = "8n";
     pattern.start();
 
     // start the global play button
