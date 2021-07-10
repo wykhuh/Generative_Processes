@@ -63,20 +63,21 @@ const sketch = (s) => {
   }
 
   function initAudio() {
-    track = new Track();
+    // base
+    track = new Track({});
 
+    // melody
     track2 = new Track({
-      transpose: 0,
-      noteDuration: "16n",
-      tempo: "4n",
-      patternType: "up",
+      transpose: 4,
+      noteDuration: "8n",
+      tempo: "8n.",
     });
 
+    // bass
     track2 = new Track({
       transpose: -7,
       noteDuration: "1n",
       tempo: "1n",
-      patternType: "up",
     });
 
     // start the global play button
