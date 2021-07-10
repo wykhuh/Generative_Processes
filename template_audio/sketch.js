@@ -28,8 +28,11 @@ const sketch = (s) => {
   s.mousePressed = () => {
     if (!ready) {
       ready = true;
+      initAudio();
     }
   };
+
+  function initAudio() {}
 };
 
 new p5(sketch);
