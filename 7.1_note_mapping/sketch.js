@@ -11,7 +11,7 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-    scale = Scale.get("C4 major").notes;
+    scale = Scale.get("C4 minor").notes;
   };
 
   s.windowResized = () => {
@@ -22,7 +22,7 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
-      let noteNumber = s.floor(s.map(s.mouseX, 0, s.width, -7, 14));
+      let noteNumber = s.floor(s.map(s.mouseX, 0, s.width, -14, 21));
 
       let numberNotes = scale.length;
       let i = modulo(noteNumber, numberNotes);
