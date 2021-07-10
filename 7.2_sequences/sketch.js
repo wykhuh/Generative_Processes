@@ -70,7 +70,7 @@ const sketch = (s) => {
         currentNote = note;
       },
       sequence,
-      "up"
+      "alternateUp"
     );
     // interval is how fast the pattern is played
     // default interval is quarter notes
