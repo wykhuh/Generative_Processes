@@ -22,7 +22,7 @@ const sketch = (s) => {
   };
 
   s.draw = () => {
-    // s.background(0);
+    s.background(0);
 
     if (ready) {
     } else {
@@ -58,11 +58,10 @@ const sketch = (s) => {
     // Pattern cycles through the passed in sequence
     pattern = new Tone.Pattern(
       (time, index) => {
-        s.background(0);
-        s.fill(255);
-        s.noStroke();
-        s.textSize(100);
-        s.text(index, s.width / 2, s.height / 2);
+        let note = mapNote(index, scale);
+        // time is a schedule time in the future. Passing time to synth ensures
+        // the note is played on beat.
+        synth.triggerAttackRelease(note, "8n", time);
       },
       sequence,
       "up"
