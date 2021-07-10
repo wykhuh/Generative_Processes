@@ -61,7 +61,7 @@ const sketch = (s) => {
   }
 
   function initAudio() {
-    track = new Track();
+    track = new Track({ transpose: -7, tempo: "2n" });
 
     // start the global play button
     Tone.Transport.start();
@@ -72,28 +72,42 @@ const sketch = (s) => {
   }
 
   class Track {
-    constructor() {
+    // patternTypes:
+    // "up" | "down" | "upDown" | "downUp" | "alternateUp" | "alternateDown" |
+    // "random" | "randomOnce" | "randomWalk"
+
+    constructor({
+      transpose = 0,
+      noteDuration = "8n",
+      tempo = "4n",
+      patternType = "up",
+    }) {
+      this.noteDuration = noteDuration;
+      this.tempo = tempo;
+      this.patternType = patternType;
+      this.transpose = transpose;
+
       this.synth = new Tone.Synth();
       this.synth.toDestination();
       this.synth.volume.value = masterVolume;
 
       this.pattern = new Tone.Pattern(
         (time, index) => {
-          let note = mapNote(sequence[index], scale);
+          let note = mapNote(sequence[index] + this.transpose, scale);
           // time is a schedule time in the future. Passing time to synth ensures
           // the note is played on beat.
-          this.synth.triggerAttackRelease(note, "8n", time);
+          this.synth.triggerAttackRelease(note, this.noteDuration, time);
           this.currentNote = note;
         },
         // to allow us to change the sequence while the program is running, we
         // pass an array of indicies to Tone.Pattern()
         // create an array starting at 0, that is same length as sequence.
         Array.from(sequence.keys()),
-        "up"
+        this.patternType
       );
       // interval is how fast the pattern is played
       // default interval is quarter notes
-      this.pattern.interval = "4n";
+      this.pattern.interval = this.tempo;
       this.pattern.start();
     }
   }
