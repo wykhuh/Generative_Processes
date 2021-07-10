@@ -21,6 +21,7 @@ const sketch = (s) => {
     rotateRight,
     invert,
     mutate,
+    tempo: 120,
   };
 
   s.setup = () => {
@@ -32,8 +33,9 @@ const sketch = (s) => {
     gui.add(settings, "rotateRight").name("Rotate right");
     gui.add(settings, "invert").name("Invert");
     gui.add(settings, "mutate").name("Mutate");
+    gui.add(settings, "tempo", 30, 240, 1).name("Tempo").onChange(changeTempo);
 
-    gui.width = 120;
+    gui.width = 200;
     gui.close();
 
     scale = Scale.get("C4 major").notes;
@@ -245,6 +247,10 @@ const sketch = (s) => {
     } else {
       sequence[i]--;
     }
+  }
+
+  function changeTempo(newValue) {
+    Tone.Transport.bpm.value = newValue;
   }
 };
 
