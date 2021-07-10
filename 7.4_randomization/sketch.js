@@ -1,6 +1,7 @@
 import p5 from "p5";
 import * as Tone from "tone";
 import { Scale, Note } from "@tonaljs/tonal";
+import * as dat from "dat.gui";
 
 const sketch = (s) => {
   let masterVolume = -10;
@@ -13,8 +14,17 @@ const sketch = (s) => {
   let track2;
   let track3;
 
+  let gui;
+  let settings = {
+    mixup: mixup,
+  };
+
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+
+    gui = new dat.GUI();
+    gui.add(settings, "mixup");
+
     scale = Scale.get("C4 major").notes;
   };
 
@@ -178,6 +188,10 @@ const sketch = (s) => {
       this.pattern.interval = this.tempo;
       this.pattern.start();
     }
+  }
+
+  function mixup() {
+    s.shuffle(sequence, true);
   }
 };
 
