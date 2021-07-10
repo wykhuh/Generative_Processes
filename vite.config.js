@@ -49,6 +49,7 @@ module.exports = {
         "7.2_sequences": resolve(__dirname, "7.2_sequences/index.html"),
         "7.3_fuge": resolve(__dirname, "7.3_fuge/index.html"),
         "7.4_randomization": resolve(__dirname, "7.4_randomization/index.html"),
+        "8.1_chords": resolve(__dirname, "8.1_chords/index.html"),
         // insert text -->
       },
     },
