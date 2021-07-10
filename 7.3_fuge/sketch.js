@@ -29,7 +29,7 @@ const sketch = (s) => {
       s.fill(255);
       s.noStroke();
       s.textAlign(s.CENTER, s.CENTER);
-      s.textSize(50);
+      s.textSize(40);
 
       s.translate(s.width / 2, s.height / 2);
       for (let i = 0; i < scale.length; i++) {
@@ -42,6 +42,15 @@ const sketch = (s) => {
 
         let noteName = Note.pitchClass(scale[i]);
 
+        if (noteName == Note.pitchClass(track.currentNote)) {
+          s.stroke(255);
+          s.line(x, y, 0, 0);
+          s.fill(0);
+          s.circle(x, y, 80);
+        }
+
+        s.noStroke();
+        s.fill(255);
         s.text(noteName, x, y);
       }
 
