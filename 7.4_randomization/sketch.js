@@ -16,9 +16,11 @@ const sketch = (s) => {
 
   let gui;
   let settings = {
-    mixup: mixup,
-    rotateLeft: rotateLeft,
-    rotateRight: rotateRight,
+    mixup,
+    rotateLeft,
+    rotateRight,
+    invert,
+    mutate,
   };
 
   s.setup = () => {
@@ -28,6 +30,11 @@ const sketch = (s) => {
     gui.add(settings, "mixup").name("Shuffle");
     gui.add(settings, "rotateLeft").name("Rotate left");
     gui.add(settings, "rotateRight").name("Rotate right");
+    gui.add(settings, "invert").name("Invert");
+    gui.add(settings, "mutate").name("Mutate");
+
+    gui.width = 120;
+    gui.close();
 
     scale = Scale.get("C4 major").notes;
   };
@@ -194,16 +201,38 @@ const sketch = (s) => {
     }
   }
 
+  // randomly shuffle entire sequence
   function mixup() {
     s.shuffle(sequence, true);
   }
 
+  // shift all items in sequence one position to the left
   function rotateLeft() {
     sequence = Collection.rotate(1, sequence);
   }
 
+  // shift all items in sequence one position to the right
   function rotateRight() {
     sequence = Collection.rotate(-1, sequence);
+  }
+
+  function invert() {
+    sequence = sequence.map((item) => {
+      return scale.length - item;
+    });
+  }
+
+  // change note up or down
+  function mutate() {
+    // pick random index
+    let i = s.floor(s.random(sequence.length));
+
+    // change note up or down
+    if (s.random(1) < 0.5) {
+      sequence[i]++;
+    } else {
+      sequence[i]--;
+    }
   }
 };
 
