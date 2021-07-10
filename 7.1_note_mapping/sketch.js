@@ -1,6 +1,6 @@
 import p5 from "p5";
 import * as Tone from "tone";
-import { Scale } from "@tonaljs/tonal";
+import { Scale, Note } from "@tonaljs/tonal";
 
 const sketch = (s) => {
   let masterVolume = -10;
@@ -28,11 +28,16 @@ const sketch = (s) => {
       let i = modulo(noteNumber, numberNotes);
       let note = scale[i];
 
+      let zeroOctave = Note.octave(scale[0]);
+      let noteOctave = zeroOctave + s.floor(noteNumber / numberNotes);
+      let noteName = Note.pitchClass(note);
+      note = noteName + noteOctave;
+
       s.fill(255);
       s.noStroke();
       s.textAlign(s.CENTER, s.CENTER);
       s.textSize(100);
-      s.text(i, s.width / 2, s.height / 2);
+      s.text(`${noteNumber}:${note}`, s.width / 2, s.height / 2);
 
       if (note != prevNote) {
         synth.triggerAttackRelease(note, "8n");
