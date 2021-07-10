@@ -152,6 +152,18 @@ const sketch = (s) => {
       tempo: "1n",
     });
 
+    let loop = new Tone.Loop(
+      (time) => {
+        // change the sequence
+        let options = [invert, mutate, rotateLeft, rotateRight, mixup];
+        let choice = s.random(options);
+        choice();
+      },
+      "2m" // 2 measures
+    );
+    // when the program starts, delay the start of the loop by two measure
+    loop.start("+2m");
+
     // start the global play button
     Tone.Transport.start();
   }
