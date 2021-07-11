@@ -1,1 +1,0 @@
-import{p as e}from"./vendor.18c988da.js";new e((e=>{let o="black";e.setup=()=>{e.createCanvas(e.windowWidth,e.windowHeight),e.background(o)},e.windowResized=()=>{e.resizeCanvas(e.windowWidth,e.windowHeight),e.background(o)},e.draw=()=>{e.noFill(),e.stroke(255);let o=e.dist(e.mouseX,e.mouseY,e.pmouseX,e.pmouseY);e.circle(e.mouseX,e.mouseY,o)}}));
