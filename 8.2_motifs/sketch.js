@@ -82,7 +82,9 @@ const sketch = (s) => {
     });
     poly.toDestination();
 
-    let motif = new Motif([0, 1, 2, 3, 4, 3, 2]);
+    // the there 7 notes and 6 beats in the rhythm.
+    // javascript treats strings as array of character.
+    new Motif([0, 1, 2, 3, 4, 3, 2], "xx-x--");
 
     // number of frequeny bins; has to be power of 2
     FFT = new Tone.FFT(1024);
@@ -104,7 +106,8 @@ const sketch = (s) => {
     // get random chord
     nextChord = s.floor(s.random(chords.length));
 
-    // schedule function in the future
+    // schedule function in the future that will play random chord at
+    // random duration
     Tone.Transport.schedule(changeChord, "+" + duration);
   }
 
@@ -125,7 +128,7 @@ const sketch = (s) => {
 
   class Motif {
     // the motifArray can be of different lengths
-    constructor(motifArray, tempo = "8n", duration = "8n") {
+    constructor(motifArray, rhythmArray, tempo = "8n", duration = "8n") {
       this.tempo = tempo;
       this.duration = duration;
 
@@ -133,14 +136,19 @@ const sketch = (s) => {
       this.synth.toDestination();
 
       this.motif = generate(motifArray);
-
-      let chordNotes = chords[currentChord];
+      this.rhythm = generate(rhythmArray);
 
       // use loop instead of sequence
       this.loop = new Tone.Loop((time) => {
+        let chordNotes = chords[currentChord];
         let noteIndex = this.motif.next().value;
-        let note = mapNote(noteIndex, chordNotes);
-        this.synth.triggerAttackRelease(note, this.duration, time);
+        let r = this.rhythm.next().value;
+
+        // only play sound when rhythm value is 'x'
+        if (r == "x") {
+          let note = mapNote(noteIndex, chordNotes);
+          this.synth.triggerAttackRelease(note, this.duration, time);
+        }
       }, this.tempo);
       this.loop.start(1);
     }
