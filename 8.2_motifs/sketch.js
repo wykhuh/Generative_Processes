@@ -83,8 +83,10 @@ const sketch = (s) => {
     poly.toDestination();
 
     // the there 7 notes and 6 beats in the rhythm.
-    // javascript treats strings as array of character.
+    // javascript treats str ings as array of character.
     new Motif([0, 1, 2, 3, 4, 3, 2], "xx-x--");
+    // offset of 7 will make this motif one octave higher
+    new Motif([4, 3, 2, 1, 0], "-x-xx-x", "8n", "16n", 7);
 
     // number of frequeny bins; has to be power of 2
     FFT = new Tone.FFT(1024);
@@ -128,9 +130,16 @@ const sketch = (s) => {
 
   class Motif {
     // the motifArray can be of different lengths
-    constructor(motifArray, rhythmArray, tempo = "8n", duration = "8n") {
+    constructor(
+      motifArray,
+      rhythmArray,
+      tempo = "8n",
+      duration = "8n",
+      offset = 0
+    ) {
       this.tempo = tempo;
       this.duration = duration;
+      this.offset = offset;
 
       this.synth = new Tone.AMSynth();
       this.synth.toDestination();
@@ -146,7 +155,7 @@ const sketch = (s) => {
 
         // only play sound when rhythm value is 'x'
         if (r == "x") {
-          let note = mapNote(noteIndex, chordNotes);
+          let note = mapNote(noteIndex + this.offset, chordNotes);
           this.synth.triggerAttackRelease(note, this.duration, time);
         }
       }, this.tempo);
