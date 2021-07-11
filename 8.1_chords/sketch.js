@@ -7,6 +7,8 @@ const sketch = (s) => {
   let ready = false;
   let scaleNotes = Scale.get("C4 major").notes;
   let chords = [];
+  let currentChord = 0;
+  let nextChord = 0;
 
   let poly;
 
@@ -59,8 +61,13 @@ const sketch = (s) => {
   }
 
   function changeChord(time) {
+    // the first chord played will be the first chord in the scale
+    currentChord = nextChord;
+
     let duration = s.floor(s.random(1, 4)) + "m";
-    poly.triggerAttackRelease(chords[0], duration);
+    poly.triggerAttackRelease(chords[currentChord], duration, time);
+
+    nextChord = s.floor(s.random(chords.length));
 
     // schedule function one measure in the future
     Tone.Transport.schedule(changeChord, "+" + duration);
