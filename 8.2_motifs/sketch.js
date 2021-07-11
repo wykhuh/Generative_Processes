@@ -83,20 +83,30 @@ const sketch = (s) => {
     poly.toDestination();
 
     // the there 7 notes and 6 beats in the rhythm.
-    // javascript treats str ings as array of character.
-    new Motif([0, 1, 2, 3, 4, 3, 2], "xx-x--");
+    // javascript treats strings as array of character. Therefore we can pass
+    // both an array of numbers and a string to generate()
+    let motif = new Motif([0, 1, 2, 3, 4, 3, 2], "xx-x--");
     // offset of 7 will make this motif one octave higher
-    new Motif([4, 3, 2, 1, 0], "-x-xx-x", "8n", "16n", 7);
+    let motif2 = new Motif([4, 3, 2, 1, 0], "-x-xx-x", "8n", "16n", 7);
+
+    // use dotted eight note as the delay to create syncopated delays
+    // 0.5 is the amount to reduce the delay each time it repeats
+    let delay = new Tone.FeedbackDelay("8n.", 0.5);
+    motif.synth.connect(delay);
+    motif2.synth.connect(delay);
+    delay.toDestination();
 
     // number of frequeny bins; has to be power of 2
     FFT = new Tone.FFT(1024);
     Tone.Destination.connect(FFT);
 
-    // call changeChord 1 second after program starts
+    // call changeChord 1 second after program starts. changeChord() triggers
+    // poly to play one chord. use recursion to keep calling changeChord().
     Tone.Transport.schedule(changeChord, "1");
     Tone.Transport.start();
   }
 
+  // recursive function that will call itself to play endless loop of chords
   function changeChord(time) {
     // the first chord played will be the first chord in the scale
     currentChord = nextChord;
@@ -128,6 +138,7 @@ const sketch = (s) => {
     return ((n % m) + m) % m;
   }
 
+  // Motif a sequence of single notes
   class Motif {
     // the motifArray can be of different lengths
     constructor(
@@ -142,12 +153,11 @@ const sketch = (s) => {
       this.offset = offset;
 
       this.synth = new Tone.AMSynth();
-      this.synth.toDestination();
 
       this.motif = generate(motifArray);
       this.rhythm = generate(rhythmArray);
 
-      // use loop instead of sequence
+      // use loop instead of sequence to create endless loop of single notes
       this.loop = new Tone.Loop((time) => {
         let chordNotes = chords[currentChord];
         let noteIndex = this.motif.next().value;
