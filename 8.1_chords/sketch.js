@@ -11,6 +11,7 @@ const sketch = (s) => {
   let nextChord = 0;
 
   let poly;
+  let FFT; // Fast Fourier Transform
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
@@ -34,6 +35,23 @@ const sketch = (s) => {
     s.background(0);
 
     if (ready) {
+      s.background(0);
+      s.stroke(255);
+
+      // visualize FFT
+      s.translate(s.width / 2, s.height / 2);
+      let buffer = FFT.getValue(0);
+      // buffer length is set by new Tone.FFT()
+      for (let i = 0; i < buffer.length; i++) {
+        s.push();
+        let angle = s.map(i, 0, buffer.length, 0, s.TWO_PI);
+        s.rotate(angle);
+
+        //  -100 to 0
+        let db = buffer[i];
+        s.point(0, db);
+        s.pop();
+      }
     } else {
       s.fill(255);
       s.noStroke();
@@ -50,12 +68,19 @@ const sketch = (s) => {
   };
 
   function initAudio() {
+    Tone.Destination.volume.value = masterVolume;
+
     poly = new Tone.PolySynth(Tone.AMSynth, {
       // attack is when sound the fades in; attack is when the sound fades out;
       envelope: { attack: 1, release: 2 },
     });
     poly.toDestination();
 
+    // number of frequeny bins; has to be power of 2
+    FFT = new Tone.FFT(1024);
+    Tone.Destination.connect(FFT);
+
+    // call changeChord 1 second after program starts
     Tone.Transport.schedule(changeChord, "1");
     Tone.Transport.start();
   }
@@ -64,12 +89,14 @@ const sketch = (s) => {
     // the first chord played will be the first chord in the scale
     currentChord = nextChord;
 
+    // play chord of random duration
     let duration = s.floor(s.random(1, 4)) + "m";
     poly.triggerAttackRelease(chords[currentChord], duration, time);
 
+    // get random chord
     nextChord = s.floor(s.random(chords.length));
 
-    // schedule function one measure in the future
+    // schedule function in the future
     Tone.Transport.schedule(changeChord, "+" + duration);
   }
 
