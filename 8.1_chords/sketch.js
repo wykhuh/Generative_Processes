@@ -39,6 +39,8 @@ const sketch = (s) => {
       s.stroke(255);
 
       // visualize FFT
+      let radius = s.min(s.width, s.height) / 2;
+
       s.translate(s.width / 2, s.height / 2);
       let buffer = FFT.getValue(0);
       // buffer length is set by new Tone.FFT()
@@ -47,9 +49,11 @@ const sketch = (s) => {
         let angle = s.map(i, 0, buffer.length, 0, s.TWO_PI);
         s.rotate(angle);
 
-        //  -100 to 0
+        // buffer values go from -100 to 0
         let db = buffer[i];
-        s.point(0, db);
+        let y = s.map(db, -100, 0, 0, radius);
+
+        s.point(0, y);
         s.pop();
       }
     } else {
