@@ -59,10 +59,11 @@ const sketch = (s) => {
   }
 
   function changeChord(time) {
-    poly.triggerAttackRelease(chords[0], "1m");
+    let duration = s.floor(s.random(1, 4)) + "m";
+    poly.triggerAttackRelease(chords[0], duration);
 
     // schedule function one measure in the future
-    Tone.Transport.schedule(changeChord, "+1m");
+    Tone.Transport.schedule(changeChord, "+" + duration);
   }
 
   function mapNote(noteNumber, scale) {
