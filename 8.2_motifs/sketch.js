@@ -78,8 +78,11 @@ const sketch = (s) => {
     poly = new Tone.PolySynth(Tone.AMSynth, {
       // attack is when sound the fades in; attack is when the sound fades out;
       envelope: { attack: 1, release: 2 },
+      volume: -6,
     });
     poly.toDestination();
+
+    let motif = new Motif([0, 1, 2, 3, 4, 3, 2]);
 
     // number of frequeny bins; has to be power of 2
     FFT = new Tone.FFT(1024);
@@ -118,6 +121,40 @@ const sketch = (s) => {
 
   function modulo(n, m) {
     return ((n % m) + m) % m;
+  }
+
+  class Motif {
+    // the motifArray can be of different lengths
+    constructor(motifArray, tempo = "8n", duration = "8n") {
+      this.tempo = tempo;
+      this.duration = duration;
+
+      this.synth = new Tone.AMSynth();
+      this.synth.toDestination();
+
+      this.motif = generate(motifArray);
+
+      let chordNotes = chords[currentChord];
+
+      // use loop instead of sequence
+      this.loop = new Tone.Loop((time) => {
+        let noteIndex = this.motif.next().value;
+        let note = mapNote(noteIndex, chordNotes);
+        this.synth.triggerAttackRelease(note, this.duration, time);
+      }, this.tempo);
+      this.loop.start(1);
+    }
+  }
+
+  function* generate(array) {
+    let i = 0;
+    // create infinite loop that returns one item from an array every time
+    // you call om the function
+    while (true) {
+      let value = array[i % array.length];
+      i++;
+      yield value;
+    }
   }
 };
 
