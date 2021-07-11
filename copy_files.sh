@@ -12,6 +12,6 @@ sed -i '' "/insert text -->/i\\
 " vite.config.js
 
 sed -i '' "/insert text -->/i\\
-      <li><a href=\"./$2\">$2</a></li>
+      <li><img src=\"./assets/images/$2.png\" /><a href=\"./$2\">$2</a></li>
 " index.html
 
