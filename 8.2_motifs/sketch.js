@@ -98,6 +98,14 @@ const sketch = (s) => {
     motif2.synth.connect(delay);
     delay.toDestination();
 
+    // continously play the first note of the scale that is 2 octaves lower
+    let drone = new Tone.Synth();
+    // fattriangle will tune oscillator to the frequency
+    drone.oscillator.type = "fattriangle";
+    drone.toDestination();
+    // only trigger attack so it sounds like a continous note that never ends
+    drone.triggerAttack(mapNote(-14, scaleNotes));
+
     // number of frequeny bins; has to be power of 2
     FFT = new Tone.FFT(1024);
     Tone.Destination.connect(FFT);
