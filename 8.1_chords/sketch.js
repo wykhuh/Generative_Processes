@@ -57,6 +57,7 @@ const sketch = (s) => {
         s.pop();
       }
     } else {
+      s.background(0, 25);
       s.fill(255);
       s.noStroke();
       s.textAlign(s.CENTER);
