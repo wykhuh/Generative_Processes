@@ -74,7 +74,9 @@ const sketch = (s) => {
 
   function initAudio() {
     Tone.Destination.volume.value = masterVolume;
+    Tone.Transport.bpm.value = 60; // default is 120
 
+    // use PolySynth to play chords
     poly = new Tone.PolySynth(Tone.AMSynth, {
       // attack is when sound the fades in; attack is when the sound fades out;
       envelope: { attack: 1, release: 2 },
