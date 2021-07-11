@@ -3,12 +3,15 @@ import * as Tone from "tone";
 import { Scale, Note, Collection } from "@tonaljs/tonal";
 import * as dat from "dat.gui";
 
+import { resetControls } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
   let masterVolume = -10;
   let ready = false;
   let scale;
 
-  let sequence = [0, 2, 4, 6]; // array of indicies for scale
+  let defaultSequence = [0, 2, 4, 6]; // array of indicies for scale
+  let sequence = defaultSequence;
 
   let track;
   let track2;
@@ -22,6 +25,7 @@ const sketch = (s) => {
     invert,
     mutate,
     tempo: 120,
+    reset,
   };
 
   s.setup = () => {
@@ -34,6 +38,7 @@ const sketch = (s) => {
     gui.add(settings, "invert").name("Invert");
     gui.add(settings, "mutate").name("Mutate");
     gui.add(settings, "tempo", 30, 240, 1).name("Tempo").onChange(changeTempo);
+    gui.add(settings, "reset").name("Reset");
 
     gui.width = 200;
     gui.close();
@@ -251,6 +256,11 @@ const sketch = (s) => {
 
   function changeTempo(newValue) {
     Tone.Transport.bpm.value = newValue;
+  }
+
+  function reset() {
+    resetControls(gui);
+    sequence = defaultSequence;
   }
 };
 

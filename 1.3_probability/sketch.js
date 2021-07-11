@@ -1,4 +1,5 @@
 import p5 from "p5";
+import { displayStartLoopControl } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
   let grid = 20; // in pixels
@@ -11,6 +12,7 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    displayStartLoopControl(s);
   };
 
   s.windowResized = () => {
@@ -20,7 +22,7 @@ const sketch = (s) => {
   s.draw = () => {
     s.background(0);
     s.stroke(255);
-    s.strokeWeight(grid / 5);
+    s.strokeWeight(grid / (grid * 0.5));
     s.noFill();
 
     // draw rows

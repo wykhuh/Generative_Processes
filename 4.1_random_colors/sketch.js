@@ -1,5 +1,6 @@
 import p5 from "p5";
 import highwayUrl from "./highway.jpg";
+import { displayStartLoopControl } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
   let highway = highwayUrl;
@@ -21,6 +22,7 @@ const sketch = (s) => {
       let c = s.color(r, g, b).toString();
       palette.push(c);
     }
+    displayStartLoopControl(s);
   };
 
   // use preload to load assets. Once assets are load, then setup is fired.

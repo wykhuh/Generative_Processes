@@ -1,6 +1,9 @@
 import p5 from "p5";
+import { displayInstructions } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
+  let instructions = "Move the cursor across the screen.";
+
   let agent;
 
   let easing = 0.1; // a value to temper acceleration
@@ -27,6 +30,8 @@ const sketch = (s) => {
     move(agent);
     followMouse(agent);
     render(agent);
+
+    displayInstructions(s, instructions);
   };
 
   // create a moving item

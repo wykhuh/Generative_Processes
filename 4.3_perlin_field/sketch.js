@@ -1,6 +1,8 @@
 import p5 from "p5";
 import highwayUrl from "./highway.jpg";
 
+import { displayReloadBrowserControl } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
   let highway = highwayUrl;
   let grid = 20;
@@ -12,6 +14,7 @@ const sketch = (s) => {
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
     s.background(0);
+    displayReloadBrowserControl(s);
   };
 
   // use preload to load assets. Once assets are load, then setup is fired.

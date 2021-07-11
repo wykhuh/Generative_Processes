@@ -1,6 +1,9 @@
 import p5 from "p5";
+import { displayInstructions } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
+  let instructions = "Click the screen to create rectangles.";
+
   let group = []; // our particle system
 
   let easing = 0.2; // a value to temper acceleration
@@ -49,7 +52,9 @@ const sketch = (s) => {
 
     // display number of agents
     s.fill(255);
-    s.text(group.length, 20, 20);
+    s.text(group.length, 20, 40);
+
+    displayInstructions(s, instructions);
   };
 
   // create a moving item

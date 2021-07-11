@@ -1,10 +1,14 @@
 import p5 from "p5";
 import * as dat from "dat.gui";
+
+import { resetControls } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
   let settings = {
     res: 0.01,
     alpha: 128,
     nFrames: 50,
+    reset,
   };
   let gui;
   let recorder = [];
@@ -17,6 +21,7 @@ const sketch = (s) => {
     gui.add(settings, "res", 0.001, 0.02);
     gui.add(settings, "alpha", 5, 255);
     gui.add(settings, "nFrames", 5, 500);
+    gui.add(settings, "reset");
   };
 
   s.windowResized = () => {
@@ -55,6 +60,11 @@ const sketch = (s) => {
     for (let frame of recorder) {
       s.line(frame.x1, frame.y1, frame.x2, frame.y2);
     }
+  }
+
+  function reset() {
+    recorder = [];
+    resetControls(gui);
   }
 };
 

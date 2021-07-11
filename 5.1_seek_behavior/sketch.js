@@ -1,6 +1,8 @@
 import p5 from "p5";
+import { displayInstructions } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
+  let instructions = "Move the cursor across the screen.";
   let group = [];
   let damping = 1;
 
@@ -14,6 +16,7 @@ const sketch = (s) => {
 
   s.draw = () => {
     s.background(255);
+    s.fill(255);
 
     if (group.length < 25) {
       group.push(createAgent());
@@ -29,6 +32,7 @@ const sketch = (s) => {
       render(agent);
       move(agent);
     }
+    displayInstructions(s, instructions, 0);
   };
 
   function createAgent() {

@@ -1,6 +1,8 @@
 import p5 from "p5";
 import * as dat from "dat.gui";
 
+import { resetControls } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
   let group = [];
   let palette = ["#8ecae6", "#219ebc", "#023047", "#ffb703", "#fb8500"];
@@ -12,6 +14,7 @@ const sketch = (s) => {
     separate: 1.5,
     cohesion: 1,
     align: 1,
+    reset,
   };
 
   let gui;
@@ -28,6 +31,7 @@ const sketch = (s) => {
     gui.add(settings, "separate", 0, 2);
     gui.add(settings, "cohesion", 0, 2);
     gui.add(settings, "align", 0, 2);
+    gui.add(settings, "reset");
 
     gui.close();
     s.background(255);
@@ -257,6 +261,12 @@ const sketch = (s) => {
     twitchDirection.rotate(twitchAngle);
     // steer agent towards the angle
     steer(agent, twitchDirection, strength);
+  }
+
+  function reset() {
+    s.background(255);
+    group = [];
+    resetControls(gui);
   }
 };
 

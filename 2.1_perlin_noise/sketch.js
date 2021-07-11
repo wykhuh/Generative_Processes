@@ -1,11 +1,14 @@
 import p5 from "p5";
 import * as dat from "dat.gui";
 
+import { resetControls } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
   let gui;
   let settings = {
     size: 15, // height of range
     res: 0.01, // how much random is moved up and down
+    reset,
   };
 
   s.setup = () => {
@@ -14,6 +17,7 @@ const sketch = (s) => {
     gui = new dat.GUI();
     gui.add(settings, "size", 5, 200);
     gui.add(settings, "res", 0.001, 1);
+    gui.add(settings, "reset");
   };
 
   s.windowResized = () => {
@@ -41,6 +45,10 @@ const sketch = (s) => {
     }
     s.endShape();
   };
+
+  function reset() {
+    resetControls(gui);
+  }
 };
 
 new p5(sketch);

@@ -2,7 +2,10 @@ import p5 from "p5";
 import * as Tone from "tone";
 import { Scale, Note } from "@tonaljs/tonal";
 
+import { displayInstructions } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
+  let instructions = "Move the cursor across the screen.";
   let masterVolume = -10;
   let ready = false;
   let scale;
@@ -36,6 +39,7 @@ const sketch = (s) => {
         synth.triggerAttackRelease(note, "8n");
         prevNote = note;
       }
+      displayInstructions(s, instructions);
     } else {
       s.fill(255);
       s.noStroke();

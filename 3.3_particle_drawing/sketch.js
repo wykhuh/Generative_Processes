@@ -1,5 +1,6 @@
 import p5 from "p5";
 import * as dat from "dat.gui";
+import { resetControls } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
   let group = []; // our particle system
@@ -10,6 +11,7 @@ const sketch = (s) => {
     strokeAlpha: 60,
     gravity: 0.0,
     lifespan: 300,
+    reset,
   };
 
   s.setup = () => {
@@ -23,6 +25,8 @@ const sketch = (s) => {
     gui.add(settings, "strokeAlpha", 0, 255);
     gui.add(settings, "gravity", 0, 0.1);
     gui.add(settings, "lifespan", 100, 1000);
+    gui.add(settings, "reset");
+
     s.background(33);
   };
 
@@ -145,6 +149,12 @@ const sketch = (s) => {
     } else {
       return false;
     }
+  }
+
+  function reset() {
+    group = [];
+    s.background(33);
+    resetControls(gui);
   }
 };
 

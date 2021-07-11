@@ -2,6 +2,8 @@ import p5 from "p5";
 import * as Tone from "tone";
 import { Scale, Collection } from "@tonaljs/tonal";
 
+import { displayReloadBrowserControl } from "../assets/scripts/sketch_utils";
+
 const sketch = (s) => {
   let masterVolume = -10;
   let ready = false;
@@ -11,6 +13,7 @@ const sketch = (s) => {
 
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
+    displayReloadBrowserControl(s, pendulums);
   };
 
   s.windowResized = () => {

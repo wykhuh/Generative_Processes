@@ -1,5 +1,6 @@
 import p5 from "p5";
 import * as dat from "dat.gui";
+
 import asset1 from "./assets/Asset 1-8.png";
 import asset2 from "./assets/Asset 3-8.png";
 import asset3 from "./assets/Asset 4-8.png";
@@ -8,6 +9,7 @@ import asset5 from "./assets/Asset 6-8.png";
 import asset6 from "./assets/Asset 7-8.png";
 import asset7 from "./assets/Asset 8-8.png";
 import asset8 from "./assets/Asset 9-8.png";
+import { resetControls } from "../assets/scripts/sketch_utils";
 
 const sketch = (s) => {
   let assets = [asset1, asset2, asset3, asset4, asset5, asset6, asset7, asset8];
@@ -22,6 +24,7 @@ const sketch = (s) => {
     separate: 1.5,
     cohesion: 1,
     align: 1,
+    reset,
   };
 
   let gui;
@@ -45,6 +48,7 @@ const sketch = (s) => {
     gui.add(settings, "separate", 0, 2);
     gui.add(settings, "cohesion", 0, 2);
     gui.add(settings, "align", 0, 2);
+    gui.add(settings, "reset");
 
     gui.close();
     s.background(255);
@@ -279,6 +283,12 @@ const sketch = (s) => {
     twitchDirection.rotate(twitchAngle);
     // steer agent towards the angle
     steer(agent, twitchDirection, strength);
+  }
+
+  function reset() {
+    s.background(255);
+    group = [];
+    resetControls(gui);
   }
 };
 
