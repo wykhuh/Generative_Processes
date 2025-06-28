@@ -27,10 +27,12 @@ This will start the vite dev server that automatically refreshes the files and b
 ./copy_files.sh <source directory> <new directory>
 ```
 
+source directory is either `template` or `template_audio`.
+
 The script will:
 
 1. create a new directory by copying the source directory
-2. add the new directory to index.html and vite.config.js
+2. add the new directory to app.js and vite.config.js
 
 ## build files
 
