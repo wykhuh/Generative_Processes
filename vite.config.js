@@ -1,7 +1,6 @@
 const { resolve } = require("path");
 
 module.exports = {
-  base: "/Generative_Processes/",
   build: {
     rollupOptions: {
       input: {
