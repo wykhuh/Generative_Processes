@@ -11,7 +11,10 @@ sed -i '' "/insert text -->/i\\
         \"$2\": resolve(__dirname, \"$2/index.html\"),
 " vite.config.js
 
+
+text_with_spaces=${2//[_]/ }
+
 sed -i '' "/insert text -->/i\\
-      <li><img src=\"./assets/images/$2.png\" /><a href=\"./$2\">$2</a></li>
+      <li><a href=\"./$2/\"><img src=\"./assets/images/$2.png\" /><span>$text_with_spaces</span></a></li>
 " index.html
 
