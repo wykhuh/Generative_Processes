@@ -39,3 +39,9 @@ The script will:
 ```{bash}
 npm run build
 ```
+
+Adds GH Pages directory to paths.
+
+```{bash}
+npm run build-ghpages
+```
