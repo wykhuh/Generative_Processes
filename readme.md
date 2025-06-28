@@ -27,6 +27,8 @@ This will start the vite dev server that automatically refreshes the files and b
 ./copy_files.sh <source directory> <new directory>
 ```
 
+`<source directory>` is `template` or `template_audio`
+
 The script will:
 
 1. create a new directory by copying the source directory
