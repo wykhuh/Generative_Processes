@@ -3,7 +3,6 @@ const { resolve } = require("path");
 module.exports = {
   base: "/Generative_Processes/",
   build: {
-    outDir: "docs",
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
